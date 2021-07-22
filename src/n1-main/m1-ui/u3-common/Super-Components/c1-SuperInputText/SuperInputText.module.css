@@ -1,0 +1,27 @@
+.input:focus {
+    outline: none;
+    opacity: 1;
+}
+
+.input {
+    background: #2B5278;
+    outline: none;
+    opacity: 0.6;
+    width: 250px;
+    height: 25px;
+    color: #99ff99;
+    font-size: large;
+    margin: 15px;
+    border-radius: 10px;
+}
+
+.errorInput {
+    border-bottom: 4px solid #dd3355;
+    border-right: 2px solid #dd3355;
+}
+
+.error {
+    color: #dd3355;
+    height: 31px;
+}
+

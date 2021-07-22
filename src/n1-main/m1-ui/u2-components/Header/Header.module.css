@@ -1,0 +1,47 @@
+.parent {
+    width: 250px;
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.navLink {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    width: 250px;
+    transition-duration: 500ms;
+    transform: translate(-205px);
+}
+
+.parent:hover .navLink {
+    transition-duration: 500ms;
+    transform: translate(0);
+}
+
+.item a {
+    text-decoration: none;
+    color: white;
+}
+
+.triangle {
+    margin-top: 6px;
+    border-top: 12px solid transparent;
+    border-left: 30px solid #525050;
+    border-bottom: 12px solid transparent;
+    padding-left: 5px;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: #17f800;
+}
+
+.active {
+    color: blueviolet
+}

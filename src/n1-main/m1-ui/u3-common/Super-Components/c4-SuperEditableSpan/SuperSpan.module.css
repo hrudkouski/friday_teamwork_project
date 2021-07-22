@@ -1,0 +1,19 @@
+.superSpan {
+    color: #f6f8f8;
+    margin-left: 30px;
+    display: inline-block;
+    padding-top: 10px;
+    cursor: pointer;
+    height: 50px;
+}
+
+.superSpan:before {
+    position: relative;
+    background: url('https://cdn4.iconfinder.com/data/icons/design-4/100/14-512.png') no-repeat;
+    background-size: 25px 30px;
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    margin-left: 5px;
+    content:"";
+}
