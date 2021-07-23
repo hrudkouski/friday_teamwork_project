@@ -1,7 +1,7 @@
 export const Profile = () => {
     return (
         <>
-            Profile
+            Profile Page
         </>
     )
 }

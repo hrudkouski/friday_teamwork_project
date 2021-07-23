@@ -1,5 +1,5 @@
 import React, {ChangeEvent, InputHTMLAttributes, DetailedHTMLProps} from 'react'
-import s from '../../../h4/common/c3-SuperCheckbox/SuperCheckbox.module.css'
+import s from './../c3-SuperCheckbox/SuperCheckbox.module.css'
 
 type DefaultRadioPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 

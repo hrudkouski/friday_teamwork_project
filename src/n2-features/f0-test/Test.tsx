@@ -4,8 +4,9 @@ import SuperButton from "../../n1-main/m1-ui/u3-common/Super-Components/c2-Super
 import SuperCheckbox from "../../n1-main/m1-ui/u3-common/Super-Components/c3-SuperCheckbox/SuperCheckbox";
 import SuperEditableSpan from "../../n1-main/m1-ui/u3-common/Super-Components/c4-SuperEditableSpan/SuperEditableSpan";
 import SuperSelect from "../../n1-main/m1-ui/u3-common/Super-Components/c5-SuperSelect/SuperSelect";
+import SuperRadio from "../../n1-main/m1-ui/u3-common/Super-Components/c6-SuperRadio/SuperRadio";
 
-const arr = ['x', 'y', 'z']
+const arr = ['Ivan', 'Nikolay', 'Nikita']
 
 
 export const Test = () => {
@@ -25,6 +26,12 @@ export const Test = () => {
                 spanProps={{children: value ? undefined : 'enter text...'}}
             />
             <SuperSelect
+                options={arr}
+                value={selections}
+                onChangeOption={onChangeOption}
+            />
+            <SuperRadio
+                name={'radio'}
                 options={arr}
                 value={selections}
                 onChangeOption={onChangeOption}
