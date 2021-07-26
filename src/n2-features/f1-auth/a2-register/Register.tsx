@@ -1,12 +1,15 @@
 import {useFormik} from "formik";
-// import { Redirect } from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import SuperInputText from "../../../n1-main/m1-ui/u3-common/Super-Components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/u3-common/Super-Components/c2-SuperButton/SuperButton";
+import {useDispatch, useSelector} from "react-redux";
+import {registerUser} from "./register-reducer";
+import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
 
 export const Register = () => {
 
-    // const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-    // const dispatch = useDispatch();
+    const isRegister = useSelector<AppRootStateType, boolean>(state => state.register.isRegister)
+    const dispatch = useDispatch();
 
     const formik = useFormik({
         initialValues: {
@@ -17,14 +20,15 @@ export const Register = () => {
         validate: () => {
         },
         onSubmit: values => {
-            alert(JSON.stringify(values, null, 2));
+            // alert(JSON.stringify(values, null, 2));
+            dispatch(registerUser(values.email, values.password))
             formik.resetForm();
         },
     });
 
-    // if (isLoggedIn) {
-    //     return <Redirect to={'/'}/>
-    // }
+    if (isRegister) {
+        return <Redirect to={'/login'}/>
+    }
 
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
