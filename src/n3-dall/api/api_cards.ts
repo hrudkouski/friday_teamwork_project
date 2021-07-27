@@ -13,5 +13,8 @@ export const registerApi = {}
 export const recoveryPasswordApi = {
     passwordRecovery(email: string, from: string, message: {}) {
         return instance.post(`/auth/forgot`, {email, from, message})
+    },
+    newPassword(password: string, resetPasswordToken: {}) {
+        return instance.post(`/auth/set-new-password`, {password, resetPasswordToken})
     }
 }

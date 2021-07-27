@@ -1,6 +1,9 @@
 import SuperInputText from "../../../n1-main/m1-ui/u3-common/Super-Components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/u3-common/Super-Components/c2-SuperButton/SuperButton";
 import {useFormik} from "formik";
+import {useDispatch} from "react-redux";
+import {newPassword} from "./newPassword-reducer";
+import { useParams } from "react-router-dom";
 
 type ErrorsDataType = {
     newPassword?: string
@@ -8,6 +11,9 @@ type ErrorsDataType = {
 }
 
 export const NewPassword = () => {
+
+    const dispatch = useDispatch()
+    const {token} = useParams<{token: string}>()
 
     const formik = useFormik({
         initialValues: {
@@ -34,7 +40,7 @@ export const NewPassword = () => {
         }),
 
         onSubmit: values => {
-            console.log(values)
+            dispatch(newPassword(values.newPassword, token))
         },
     });
 

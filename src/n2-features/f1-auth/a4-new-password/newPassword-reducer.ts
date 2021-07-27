@@ -1,4 +1,5 @@
-// Reducer
+import {recoveryPasswordApi} from "../../../n3-dall/api/api_cards";
+
 export const newPasswordReducer = (state: any, action: any): any => {
     switch (action.type) {
         default:
@@ -6,8 +7,6 @@ export const newPasswordReducer = (state: any, action: any): any => {
     }
 }
 
-// Actions
-// Types
-// Initial State
-// Action Creators
-// Thunk Creators
+export const newPassword = (password: string, resetPasswordToken: {}) => (
+    recoveryPasswordApi.newPassword(password, resetPasswordToken)
+)

@@ -15,7 +15,7 @@ export const Routes = () => {
                 <Route path={'/register'} render={() => <Register/>}/>
                 <Route path={'/profile'} render={() => <Profile/>}/>
                 <Route path={'/recovery'} render={() => <RecoveryPassword/>}/>
-                <Route path={'/new-password'} render={() => <NewPassword/>}/>
+                <Route path={'/new-password/:token'} render={() => <NewPassword/>}/>
                 <Route path={'/test'} render={() => <Test/>}/>
                 <Route render={() => <Error404/>}/>
             </Switch>
