@@ -10,4 +10,8 @@ const instance = axios.create({
 // Api
 export const loginApi = {}
 export const registerApi = {}
-export const recoveryPasswordApi = {}
+export const recoveryPasswordApi = {
+    passwordRecovery(email: string, from: string, message: {}) {
+        return instance.post(`/auth/forgot`, {email, from, message})
+    }
+}
