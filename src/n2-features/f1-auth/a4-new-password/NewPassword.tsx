@@ -1,9 +1,10 @@
 import SuperInputText from "../../../n1-main/m1-ui/u3-common/Super-Components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../../../n1-main/m1-ui/u3-common/Super-Components/c2-SuperButton/SuperButton";
 import {useFormik} from "formik";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {newPassword} from "./newPassword-reducer";
-import { useParams } from "react-router-dom";
+import {Redirect, useParams } from "react-router-dom";
+import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
 
 type ErrorsDataType = {
     newPassword?: string
@@ -14,6 +15,7 @@ export const NewPassword = () => {
 
     const dispatch = useDispatch()
     const {token} = useParams<{token: string}>()
+    const isPasswordChanged = useSelector<AppRootStateType, boolean>(state => state.newPassword.isPasswordChanged)
 
     const formik = useFormik({
         initialValues: {
@@ -43,6 +45,10 @@ export const NewPassword = () => {
             dispatch(newPassword(values.newPassword, token))
         },
     });
+
+    if(isPasswordChanged) {
+        return <Redirect to={"/login"}/>
+    }
 
     return (
         <form onSubmit={formik.handleSubmit}>
