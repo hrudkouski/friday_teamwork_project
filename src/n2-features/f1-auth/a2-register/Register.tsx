@@ -5,6 +5,7 @@ import SuperButton from "../../../n1-main/m1-ui/u3-common/Super-Components/c2-Su
 import {useDispatch, useSelector} from "react-redux";
 import {registerUser} from "./register-reducer";
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
+import {useState} from "react";
 
 type FormikErrorType = {
     email?: string
@@ -16,6 +17,12 @@ export const Register = () => {
 
     const isRegister = useSelector<AppRootStateType, boolean>(state => state.register.isRegister)
     const dispatch = useDispatch();
+
+    const [type, setType] = useState<string>('password')
+
+    const showHide = () => {
+        setType(type === 'text' ? 'password' : 'text')
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -59,6 +66,7 @@ export const Register = () => {
         return <Redirect to={'/login'}/>
     }
 
+
     return (
         <div style={{display: 'flex', flexDirection: 'column'}}>
             <span style={{color: 'red'}}>it-incubator</span>
@@ -78,9 +86,13 @@ export const Register = () => {
                     <label htmlFor="password">Password</label>
                     <SuperInputText
                         id="password"
-                        type="password"
+                        type={type}
                         {...formik.getFieldProps('password')}
                     />
+                    <span style={
+                        {position: "relative", bottom: '48px', left: '275px', width: '30px', cursor: 'pointer'}
+                    }
+                          onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
                     {formik.errors.password && formik.touched.password &&
                     <div style={{color: 'red', width: '300px'}}>{formik.errors.password}</div>}
                 </div>
@@ -102,3 +114,4 @@ export const Register = () => {
         </div>
     )
 }
+
