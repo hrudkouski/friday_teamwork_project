@@ -40,11 +40,12 @@ export const registerUser = (email: string, password: string) => {
                     dispatch(setRegisterDataAC(true))
                 }
             })
-            .catch(() => {
-                // const error = e.response
-                //     ? e.response.data.error
-                //     : (e.message + ', more details in the console');
-                // console.log('Error: ', {...e})
+            .catch((e) => {
+                const error = e.response
+                    ? e.response.data.error
+                    : (e.message + ', more details in the console');
+                console.log(error)
+                alert(error)
             })
     }
 }

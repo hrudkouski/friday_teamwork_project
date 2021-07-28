@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {registerUser} from "./register-reducer";
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
 import {useState} from "react";
+import s from './Register.module.css';
 
 type FormikErrorType = {
     email?: string
@@ -66,51 +67,59 @@ export const Register = () => {
         return <Redirect to={'/login'}/>
     }
 
-
     return (
-        <div style={{display: 'flex', flexDirection: 'column'}}>
-            <span style={{color: 'red'}}>it-incubator</span>
-            <span style={{color: 'green'}}>Sign Up</span>
-            <form onSubmit={formik.handleSubmit}>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <label htmlFor="email">Email</label>
-                    <SuperInputText
-                        id="email"
-                        type="email"
-                        {...formik.getFieldProps('email')}
-                    />
-                    {formik.errors.email && formik.touched.email &&
-                    <div style={{color: 'red'}}>{formik.errors.email}</div>}
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <label htmlFor="password">Password</label>
-                    <SuperInputText
-                        id="password"
-                        type={type}
-                        {...formik.getFieldProps('password')}
-                    />
-                    <span style={
-                        {position: "relative", bottom: '48px', left: '275px', width: '30px', cursor: 'pointer'}
-                    }
-                          onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
-                    {formik.errors.password && formik.touched.password &&
-                    <div style={{color: 'red', width: '300px'}}>{formik.errors.password}</div>}
-                </div>
-                <div style={{display: 'flex', flexDirection: 'column'}}>
-                    <label htmlFor="confirmPassword">Confirm password</label>
-                    <SuperInputText
-                        id="confirmPassword"
-                        type="password"
-                        {...formik.getFieldProps('confirmPassword')}
-                    />
-                    {formik.errors.confirmPassword && formik.touched.confirmPassword &&
-                    <div style={{color: 'red', width: '300px'}}>{formik.errors.confirmPassword}</div>}
-                </div>
-                <div>
-                    <SuperButton type='reset'>Cancel</SuperButton>
-                    <SuperButton type="submit">Register</SuperButton>
-                </div>
-            </form>
+        <div className={s.authRegister}>
+            <div className={s.wrapper}>
+                <span className={s.incubator}>It-incubator</span>
+                <span className={s.signUp}>Sign Up</span>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="email">Email</label>
+                        <SuperInputText
+                            id="email"
+                            type="email"
+                            {...formik.getFieldProps('email')}
+                        />
+                        {formik.errors.email && formik.touched.email &&
+                        <div className={s.errorMessage}>{formik.errors.email}</div>}
+                    </div>
+
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="password">Password</label>
+                        <SuperInputText
+                            id="password"
+                            type={type}
+                            {...formik.getFieldProps('password')}
+                        />
+                        <span className={s.showHideMenu}
+                              onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                        {formik.errors.password && formik.touched.password &&
+                        <div className={s.errorMessage}>{formik.errors.password}</div>}
+                    </div>
+
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="confirmPassword">Confirm password</label>
+                        <SuperInputText
+                            id="confirmPassword"
+                            type="password"
+                            {...formik.getFieldProps('confirmPassword')}
+                        />
+                        {formik.errors.confirmPassword && formik.touched.confirmPassword &&
+                        <div className={s.errorMessage}>{formik.errors.confirmPassword}</div>}
+                    </div>
+
+                    <div className={s.buttonFormRegister}>
+                        <SuperButton
+                            className={s.button}
+                            type='reset'>Cancel
+                        </SuperButton>
+                        <SuperButton
+                            className={s.button}
+                            type="submit">Register
+                        </SuperButton>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
