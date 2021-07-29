@@ -21,6 +21,13 @@ export const newPassword = (password: string, resetPasswordToken: {}) => (dispat
         .then(response => {
             dispatch(passwordChanged(true))
         })
+        .catch((e) => {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', more details in the console');
+            console.log(error)
+            alert(error)
+        })
 )
 
 type InitialStateType = {
