@@ -6,24 +6,16 @@ import { AppRootStateType } from "../../../n1-main/m2-bll/store/redux-store";
 import style from './Login.module.css';
 
 export const Login = () => {
-    
-    
-    type FormikErrorType = { 
 
+    type FormikErrorType = { 
         email?: string 
         password?: string 
         rememberMe?: boolean 
      } 
-    
-    
+   
         const dispatch = useDispatch();
         const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     
-
-
-
-
-
         const formik = useFormik({
             initialValues: {
                 email: '',
@@ -68,8 +60,6 @@ export const Login = () => {
         }
     
        return <>
-
-
                 <div className={style.loginFormContainer}>
                     Login
                     <form className={style.loginForm}
@@ -177,8 +167,4 @@ export const Login = () => {
     //        </Grid> 
     
     //    </Grid> 
-    
-    
-
-
 }
