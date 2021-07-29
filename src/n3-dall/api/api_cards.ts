@@ -9,5 +9,11 @@ const instance = axios.create({
 
 // Api
 export const loginApi = {}
-export const registerApi = {}
+export const registerApi = {
+    registerUser(email: string, password: string) {
+        return instance.post<any>('/auth/register', {
+            email, password
+        })
+    },
+}
 export const recoveryPasswordApi = {}
