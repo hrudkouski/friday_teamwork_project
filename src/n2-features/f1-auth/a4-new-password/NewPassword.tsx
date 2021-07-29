@@ -7,6 +7,7 @@ import {Redirect, useParams } from "react-router-dom";
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
 import s from "./NewPassword.module.css";
 import {useState} from "react";
+import {StatusType} from "../../../n1-main/m1-ui/u1-app/app-reducer";
 
 type ErrorsDataType = {
     newPassword?: string
@@ -18,6 +19,7 @@ export const NewPassword = () => {
     const dispatch = useDispatch()
     const {token} = useParams<{token: string}>()
     const isPasswordChanged = useSelector<AppRootStateType, boolean>(state => state.newPassword.isPasswordChanged)
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     const [type, setType] = useState<string>('password')
 
@@ -65,6 +67,7 @@ export const NewPassword = () => {
                 <div className={s.inputFormRegister}>
                     <label htmlFor="password">New Password</label>
                     <SuperInputText type={type}
+                                    disabled={status === "loading"}
                                     {...formik.getFieldProps("newPassword")}/>
                     <span className={s.showHideMenu}
                           onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
@@ -75,6 +78,7 @@ export const NewPassword = () => {
                 <div className={s.inputFormRegister}>
                     <label htmlFor="password">Repeat Password</label>
                     <SuperInputText type={type}
+                                    disabled={status === "loading"}
                                     {...formik.getFieldProps("repeatPassword")}/>
                     <span className={s.showHideMenu}
                           onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
@@ -82,7 +86,7 @@ export const NewPassword = () => {
                         ? (<div className={s.errorMessage}>{formik.errors.repeatPassword}</div>)
                         : null}
                 </div>
-                <SuperButton type="submit">Change</SuperButton>
+                <SuperButton disabled={status === "loading"} type="submit">Change</SuperButton>
             </form>
         </div>
     )

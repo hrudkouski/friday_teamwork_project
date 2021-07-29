@@ -1,5 +1,6 @@
 import {recoveryPasswordApi} from "../../../n3-dall/api/api_cards";
 import {Dispatch} from "redux";
+import {changeStatusAC} from "../../../n1-main/m1-ui/u1-app/app-reducer";
 
 export const recoveryPasswordReducer = (state: any, action: any): any => {
     switch (action.type) {
@@ -9,8 +10,11 @@ export const recoveryPasswordReducer = (state: any, action: any): any => {
 }
 
 export const passwordRecovery = (email: string, from: string, message: {}) => (dispatch: Dispatch) => {
+    dispatch(changeStatusAC("loading"))
     recoveryPasswordApi.passwordRecovery(email, from, message)
-        .then()
+        .then(response => {
+            dispatch(changeStatusAC("succeeded"))
+        })
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
