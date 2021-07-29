@@ -6,6 +6,7 @@ import {passwordRecovery} from "./recoveryPassword-reducer";
 import s from './RecoveryPassword.module.css';
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
 import {StatusType} from "../../../n1-main/m1-ui/u1-app/app-reducer";
+import {Preloader} from "../../../n1-main/m1-ui/u3-common/Super-Components/c7-Preloader/Preloader";
 
 type ErrorsDataType = {
     email?: string
@@ -45,20 +46,23 @@ export const RecoveryPassword = () => {
     });
 
     return (
-        <div className={s.wrapper}>
-            <span className={s.signUp}>Recovery Password</span>
-            <form onSubmit={formik.handleSubmit}>
-                <div className={s.inputFormRegister}>
-                    <label htmlFor="email">Email Address</label>
-                    <SuperInputText type="email"
-                                    disabled={status === "loading"}
-                                    {...formik.getFieldProps("email")}/>
-                    {formik.errors.email
-                        ? (<div className={s.errorMessage}>{formik.errors.email}</div>)
-                        : null}
-                </div>
-                <SuperButton disabled={status === "loading"} type="submit">Send</SuperButton>
-            </form>
-        </div>
+        <>
+            {status === "loading" ? <Preloader/> : null}
+            <div className={s.wrapper}>
+                <span className={s.signUp}>Recovery Password</span>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="email">Email Address</label>
+                        <SuperInputText type="email"
+                                        disabled={status === "loading"}
+                                        {...formik.getFieldProps("email")}/>
+                        {formik.errors.email
+                            ? (<div className={s.errorMessage}>{formik.errors.email}</div>)
+                            : null}
+                    </div>
+                    <SuperButton disabled={status === "loading"} type="submit">Send</SuperButton>
+                </form>
+            </div>
+        </>
     )
 }
