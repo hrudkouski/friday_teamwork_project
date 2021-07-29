@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {newPassword} from "./newPassword-reducer";
 import {Redirect, useParams } from "react-router-dom";
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
+import s from "./NewPassword.module.css";
+import {useState} from "react";
 
 type ErrorsDataType = {
     newPassword?: string
@@ -16,6 +18,12 @@ export const NewPassword = () => {
     const dispatch = useDispatch()
     const {token} = useParams<{token: string}>()
     const isPasswordChanged = useSelector<AppRootStateType, boolean>(state => state.newPassword.isPasswordChanged)
+
+    const [type, setType] = useState<string>('password')
+
+    const showHide = () => {
+        setType(type === 'text' ? 'password' : 'text')
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -51,24 +59,31 @@ export const NewPassword = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <label htmlFor="password">New Password</label>
-                <SuperInputText type="password"
-                                {...formik.getFieldProps("newPassword")}/>
-                {formik.touched.newPassword && formik.errors.newPassword
-                    ? (<div style={{color: "red"}}>{formik.errors.newPassword}</div>)
-                    : null}
-            </div>
-            <div>
-                <label htmlFor="password">Repeat Password</label>
-                <SuperInputText type="password"
-                                {...formik.getFieldProps("repeatPassword")}/>
-                {formik.touched.repeatPassword && formik.errors.repeatPassword
-                    ? (<div style={{color: "red"}}>{formik.errors.repeatPassword}</div>)
-                    : null}
-            </div>
-            <SuperButton type="submit">Submit</SuperButton>
-        </form>
+        <div className={s.wrapper}>
+            <span className={s.signUp}>New Password</span>
+            <form onSubmit={formik.handleSubmit}>
+                <div className={s.inputFormRegister}>
+                    <label htmlFor="password">New Password</label>
+                    <SuperInputText type={type}
+                                    {...formik.getFieldProps("newPassword")}/>
+                    <span className={s.showHideMenu}
+                          onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                    {formik.touched.newPassword && formik.errors.newPassword
+                        ? (<div className={s.errorMessage}>{formik.errors.newPassword}</div>)
+                        : null}
+                </div>
+                <div className={s.inputFormRegister}>
+                    <label htmlFor="password">Repeat Password</label>
+                    <SuperInputText type={type}
+                                    {...formik.getFieldProps("repeatPassword")}/>
+                    <span className={s.showHideMenu}
+                          onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                    {formik.touched.repeatPassword && formik.errors.repeatPassword
+                        ? (<div className={s.errorMessage}>{formik.errors.repeatPassword}</div>)
+                        : null}
+                </div>
+                <SuperButton type="submit">Change</SuperButton>
+            </form>
+        </div>
     )
 }

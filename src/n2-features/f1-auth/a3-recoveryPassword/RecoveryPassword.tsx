@@ -3,6 +3,7 @@ import SuperButton from "../../../n1-main/m1-ui/u3-common/Super-Components/c2-Su
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {passwordRecovery} from "./recoveryPassword-reducer";
+import s from './RecoveryPassword.module.css';
 
 type ErrorsDataType = {
     email?: string
@@ -41,16 +42,19 @@ export const RecoveryPassword = () => {
     });
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <label htmlFor="email">Email Address</label>
-                <SuperInputText type="email"
-                                {...formik.getFieldProps("email")}/>
-                {formik.errors.email
-                    ? (<div style={{color: "red"}}>{formik.errors.email}</div>)
-                    : null}
-            </div>
-            <SuperButton type="submit">Submit</SuperButton>
-        </form>
+        <div className={s.wrapper}>
+            <span className={s.signUp}>Recovery Password</span>
+            <form onSubmit={formik.handleSubmit}>
+                <div className={s.inputFormRegister}>
+                    <label htmlFor="email">Email Address</label>
+                    <SuperInputText type="email"
+                                    {...formik.getFieldProps("email")}/>
+                    {formik.errors.email
+                        ? (<div className={s.errorMessage}>{formik.errors.email}</div>)
+                        : null}
+                </div>
+                <SuperButton type="submit">Send</SuperButton>
+            </form>
+        </div>
     )
 }
