@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import { useFormik } from 'formik';
 import { loginTC, ProfileType } from "./login-reducer";
 import { AppRootStateType } from "../../../n1-main/m2-bll/store/redux-store";
+import style from './Login.module.css';
 
 export const Login = () => {
     
@@ -68,41 +69,56 @@ export const Login = () => {
     
        return <>
 
-                Login
-                <form onSubmit={formik.submitForm}>
 
-                    {/* required  - validating form but need to refactor this */}
-                    <input type="text" 
-                            placeholder='Email*' 
-                            name='email'
-                            onChange={formik.handleChange}
-                            value={formik.values.email}
-                            onBlur={formik.handleBlur} 
-                            required/>
-                    
-                    {formik.touched.email && formik.errors.email && 
-                    <div style={{'color': 'red', 'fontSize': '0.5em'}}>{formik.errors.email}</div>}
+                <div className={style.loginFormContainer}>
+                    Login
+                    <form className={style.loginForm}
+                            onSubmit={formik.submitForm}>
+
+                        {/* required  - validating form but need to refactor this */}
+                        <input type="text" 
+                                placeholder='Email*' 
+                                name='email'
+                                onChange={formik.handleChange}
+                                value={formik.values.email}
+                                onBlur={formik.handleBlur} 
+                                required/>
+                        
+                        {formik.touched.email && formik.errors.email && 
+                        <div className={style.error}>{formik.errors.email}</div>}
 
 
-                    <input type="password" 
-                            placeholder='Password*' 
-                            name='password'
-                            onChange={formik.handleChange}
-                            value={formik.values.password}
-                            onBlur={formik.handleBlur}  
-                            required/>
-                    
-                    {formik.touched.password && formik.errors.password && 
-                    <div style={{'color': 'red' , 'fontSize': '0.5em'}}>{formik.errors.password}</div>}
+                        <input type="password" 
+                                placeholder='Password*' 
+                                name='password'
+                                onChange={formik.handleChange}
+                                value={formik.values.password}
+                                onBlur={formik.handleBlur}  
+                                required/>
+                        
+                        {formik.touched.password && formik.errors.password && 
+                        <div className={style.error}>{formik.errors.password}</div>}
 
-                    <input type="checkbox" 
-                            //placeholder='E-mail*' 
-                            name='Remember Me' 
-                            />
+                        {/* Checkbox start */}
+                        <div className={style.checkBoxContainer}>
+                            <input  className={style.checkBox}
+                                    type="checkbox" 
+                                    //placeholder='E-mail*' 
+                                    name='Remember Me'
+                                    id="rememberMe" 
+                                    />
+                            <label className={style.checkBoxLabel} htmlFor="rememberMe">Remember me</label>
 
-                <input type="submit" value="Login" />
+                            
+                        </div>
+                        {/* Checkbox end */}
+                        
+                        <input  className={style.submitButton}
+                                    type="submit" value="Login" />
 
-</form>
+                    </form>
+                </div>
+                
        </> 
     //    <Grid container justify="center"> 
     
