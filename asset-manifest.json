@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/friday_teamwork_project/static/css/main.8637ec15.chunk.css",
-    "main.js": "/friday_teamwork_project/static/js/main.0ab1e23c.chunk.js",
-    "main.js.map": "/friday_teamwork_project/static/js/main.0ab1e23c.chunk.js.map",
-    "runtime-main.js": "/friday_teamwork_project/static/js/runtime-main.b52ade5a.js",
-    "runtime-main.js.map": "/friday_teamwork_project/static/js/runtime-main.b52ade5a.js.map",
-    "static/js/2.0b8bb5da.chunk.js": "/friday_teamwork_project/static/js/2.0b8bb5da.chunk.js",
-    "static/js/2.0b8bb5da.chunk.js.map": "/friday_teamwork_project/static/js/2.0b8bb5da.chunk.js.map",
-    "static/js/3.7dea0be4.chunk.js": "/friday_teamwork_project/static/js/3.7dea0be4.chunk.js",
-    "static/js/3.7dea0be4.chunk.js.map": "/friday_teamwork_project/static/js/3.7dea0be4.chunk.js.map",
+    "main.css": "/friday_teamwork_project/static/css/main.bcc82e25.chunk.css",
+    "main.js": "/friday_teamwork_project/static/js/main.898f5b75.chunk.js",
+    "main.js.map": "/friday_teamwork_project/static/js/main.898f5b75.chunk.js.map",
+    "runtime-main.js": "/friday_teamwork_project/static/js/runtime-main.72e41d6f.js",
+    "runtime-main.js.map": "/friday_teamwork_project/static/js/runtime-main.72e41d6f.js.map",
+    "static/js/2.01c376bb.chunk.js": "/friday_teamwork_project/static/js/2.01c376bb.chunk.js",
+    "static/js/2.01c376bb.chunk.js.map": "/friday_teamwork_project/static/js/2.01c376bb.chunk.js.map",
+    "static/js/3.4d6a3128.chunk.js": "/friday_teamwork_project/static/js/3.4d6a3128.chunk.js",
+    "static/js/3.4d6a3128.chunk.js.map": "/friday_teamwork_project/static/js/3.4d6a3128.chunk.js.map",
     "index.html": "/friday_teamwork_project/index.html",
-    "static/css/main.8637ec15.chunk.css.map": "/friday_teamwork_project/static/css/main.8637ec15.chunk.css.map",
-    "static/js/2.0b8bb5da.chunk.js.LICENSE.txt": "/friday_teamwork_project/static/js/2.0b8bb5da.chunk.js.LICENSE.txt"
+    "static/css/main.bcc82e25.chunk.css.map": "/friday_teamwork_project/static/css/main.bcc82e25.chunk.css.map",
+    "static/js/2.01c376bb.chunk.js.LICENSE.txt": "/friday_teamwork_project/static/js/2.01c376bb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.b52ade5a.js",
-    "static/js/2.0b8bb5da.chunk.js",
-    "static/css/main.8637ec15.chunk.css",
-    "static/js/main.0ab1e23c.chunk.js"
+    "static/js/runtime-main.72e41d6f.js",
+    "static/js/2.01c376bb.chunk.js",
+    "static/css/main.bcc82e25.chunk.css",
+    "static/js/main.898f5b75.chunk.js"
   ]
 }
