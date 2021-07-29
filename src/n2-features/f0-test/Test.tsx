@@ -6,7 +6,7 @@ import SuperEditableSpan from "../../n1-main/m1-ui/u3-common/Super-Components/c4
 import SuperSelect from "../../n1-main/m1-ui/u3-common/Super-Components/c5-SuperSelect/SuperSelect";
 import SuperRadio from "../../n1-main/m1-ui/u3-common/Super-Components/c6-SuperRadio/SuperRadio";
 
-const arr = ['Ivan', 'Nikolay', 'Nikita']
+const arr = ['Tim', 'Nikolay', 'Nikita']
 
 
 export const Test = () => {

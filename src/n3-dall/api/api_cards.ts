@@ -23,6 +23,7 @@ const instance = axios.create({
 // } 
 
 // Api
+
 export const loginApi = {
     
     login(user: ProfileType) {
@@ -31,5 +32,13 @@ export const loginApi = {
         return promise;
     }
 }
-export const registerApi = {}
+
+export const registerApi = {
+    registerUser(email: string, password: string) {
+        return instance.post<any>('/auth/register', {
+            email, password
+        })
+    },
+}
+
 export const recoveryPasswordApi = {}
