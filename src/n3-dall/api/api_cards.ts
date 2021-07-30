@@ -6,22 +6,6 @@ const instance = axios.create({
     withCredentials: true,
 })
 
-// Types
-// export type ProfileType = {
-//     created: string
-//     email: string
-//     isAdmin: string
-//     name: string
-//     publicCardPacksCount: number
-//     rememberMe: boolean
-//     token: string
-//     tokenDeathTime: string
-//     updated: string
-//     verified: string
-//     __v: number
-//     _id: string
-// } 
-
 // Api
 export const recoveryPasswordApi = {
     passwordRecovery(email: string, from: string, message: {}) {
