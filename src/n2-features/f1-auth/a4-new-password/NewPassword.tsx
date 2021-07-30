@@ -5,6 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {newPassword} from "./newPassword-reducer";
 import {Redirect, useParams } from "react-router-dom";
 import {AppRootStateType} from "../../../n1-main/m2-bll/store/redux-store";
+import s from "./NewPassword.module.css";
+import {useState} from "react";
+import {StatusType} from "../../../n1-main/m1-ui/u1-app/app-reducer";
+import {Preloader} from "../../../n1-main/m1-ui/u3-common/Super-Components/c7-Preloader/Preloader";
 
 type ErrorsDataType = {
     newPassword?: string
@@ -16,6 +20,13 @@ export const NewPassword = () => {
     const dispatch = useDispatch()
     const {token} = useParams<{token: string}>()
     const isPasswordChanged = useSelector<AppRootStateType, boolean>(state => state.newPassword.isPasswordChanged)
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
+
+    const [type, setType] = useState<string>('password')
+
+    const showHide = () => {
+        setType(type === 'text' ? 'password' : 'text')
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -51,24 +62,36 @@ export const NewPassword = () => {
     }
 
     return (
-        <form onSubmit={formik.handleSubmit}>
-            <div>
-                <label htmlFor="password">New Password</label>
-                <SuperInputText type="password"
-                                {...formik.getFieldProps("newPassword")}/>
-                {formik.touched.newPassword && formik.errors.newPassword
-                    ? (<div style={{color: "red"}}>{formik.errors.newPassword}</div>)
-                    : null}
+        <>
+            {status === "loading" ? <Preloader/> : null}
+            <div className={s.wrapper}>
+                <span className={s.signUp}>New Password</span>
+                <form onSubmit={formik.handleSubmit}>
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="password">New Password</label>
+                        <SuperInputText type={type}
+                                        disabled={status === "loading"}
+                                        {...formik.getFieldProps("newPassword")}/>
+                        <span className={s.showHideMenu}
+                              onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                        {formik.touched.newPassword && formik.errors.newPassword
+                            ? (<div className={s.errorMessage}>{formik.errors.newPassword}</div>)
+                            : null}
+                    </div>
+                    <div className={s.inputFormRegister}>
+                        <label htmlFor="password">Repeat Password</label>
+                        <SuperInputText type={type}
+                                        disabled={status === "loading"}
+                                        {...formik.getFieldProps("repeatPassword")}/>
+                        <span className={s.showHideMenu}
+                              onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                        {formik.touched.repeatPassword && formik.errors.repeatPassword
+                            ? (<div className={s.errorMessage}>{formik.errors.repeatPassword}</div>)
+                            : null}
+                    </div>
+                    <SuperButton disabled={status === "loading"} type="submit">Change</SuperButton>
+                </form>
             </div>
-            <div>
-                <label htmlFor="password">Repeat Password</label>
-                <SuperInputText type="password"
-                                {...formik.getFieldProps("repeatPassword")}/>
-                {formik.touched.repeatPassword && formik.errors.repeatPassword
-                    ? (<div style={{color: "red"}}>{formik.errors.repeatPassword}</div>)
-                    : null}
-            </div>
-            <SuperButton type="submit">Submit</SuperButton>
-        </form>
+        </>
     )
 }
