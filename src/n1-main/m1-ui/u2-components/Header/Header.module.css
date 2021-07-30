@@ -1,14 +1,13 @@
 .wrapper {
     display: flex;
-    flex-direction: column;
 }
 
-.parent {
-    width: 250px;
-    display: flex;
-    align-items: center;
-    padding: 5px;
-}
+/*.parent {*/
+/*    width: 250px;*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    padding: 5px;*/
+/*}*/
 
 .navLink {
     display: flex;
@@ -27,25 +26,33 @@
 .item a {
     text-decoration: none;
     color: white;
+    margin: 10px;
 }
 
-.triangle {
-    margin-top: 6px;
-    border-top: 12px solid transparent;
-    border-left: 30px solid #525050;
-    border-bottom: 12px solid transparent;
-    padding-left: 5px;
-}
+/*.triangle {*/
+/*    margin-top: 6px;*/
+/*    border-top: 12px solid transparent;*/
+/*    border-left: 30px solid #525050;*/
+/*    border-bottom: 12px solid transparent;*/
+/*    padding-left: 5px;*/
+/*}*/
 
 .link {
     color: white;
     text-decoration: none;
+    margin: 5px;
+    border: white 1px solid;
+    padding: 5px;
+    border-radius: 15px;
+    background: #1F3A55;
+    text-transform: uppercase;
 }
 
-.link:hover {
-    color: #17f800;
-}
+/*.link:hover {*/
+/*    color: #f5cfcf;*/
+/*}*/
 
 .active {
-    color: blueviolet
+    color: #E92539;
+    font-weight: bold;
 }

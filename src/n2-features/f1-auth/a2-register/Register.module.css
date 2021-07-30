@@ -17,7 +17,7 @@
     /*top: 84px;*/
     width: 413px;
     height: 540px;
-    background: #0E1621;
+    background: #1A1A2E;
     border-radius: 30px;
     margin: 10px;
 }
@@ -42,9 +42,9 @@
     /*position: absolute;*/
     /*left: 598px;*/
     /*top: 180px;*/
-    width: 85px;
+    width: 285px;
     height: 33px;
-    color: green;
+    color: #EBA300;
     font-style: normal;
     font-weight: 600;
     font-size: 22px;
@@ -82,13 +82,13 @@
 
 .errorMessage {
     color: #E92539;
-    font-size: 0.8em;
+    font-size: 0.5em;
 }
 
 .showHideMenu {
     position: relative;
-    bottom: 53px;
-    left: 335px;
+    bottom: 57px;
+    left: 330px;
     width: 30px;
     cursor: pointer;
 }
@@ -100,6 +100,7 @@
     /*top: 528px;*/
     width: 124px;
     height: 36px;
+    text-transform: uppercase;
 }
 
 .buttonFormRegister button:nth-child(2) {
@@ -108,4 +109,5 @@
     /*top: 528px;*/
     width: 187px;
     height: 36px;
+    text-transform: uppercase;
 }
