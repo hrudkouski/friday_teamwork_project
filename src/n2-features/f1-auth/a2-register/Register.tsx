@@ -52,7 +52,7 @@ export const Register = () => {
             if (!values.confirmPassword) {
                 errors.confirmPassword = 'Confirm password is required';
             } else if (values.password !== values.confirmPassword) {
-                errors.confirmPassword = 'The password and confirm password fields do not match.';
+                errors.confirmPassword = 'Password mismatch';
             }
 
             return errors;
@@ -70,8 +70,8 @@ export const Register = () => {
     return (
         <div className={s.authRegister}>
             <div className={s.wrapper}>
-                <span className={s.incubator}>It-incubator</span>
-                <span className={s.signUp}>Sign Up</span>
+                <span className={s.incubator}>Sign up</span>
+                <span className={s.signUp}>Please fill in the form below</span>
                 <form onSubmit={formik.handleSubmit}>
                     <div className={s.inputFormRegister}>
                         <label htmlFor="email">Email</label>
@@ -115,7 +115,7 @@ export const Register = () => {
                         </SuperButton>
                         <SuperButton
                             className={s.button}
-                            type="submit">Register
+                            type="submit">Sign up
                         </SuperButton>
                     </div>
                 </form>
