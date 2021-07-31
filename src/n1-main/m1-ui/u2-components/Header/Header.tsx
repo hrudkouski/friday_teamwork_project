@@ -25,6 +25,11 @@ export const Header = () => {
                     <NavLink
                         className={h.link}
                         activeClassName={h.activeLink}
+                        to={'/packList'}>Packs List
+                    </NavLink>
+                    <NavLink
+                        className={h.link}
+                        activeClassName={h.activeLink}
                         to={'/recovery'}>Recovery
                     </NavLink>
                     {/*<NavLink*/}
