@@ -32,11 +32,6 @@ export const Header = () => {
                         activeClassName={h.activeLink}
                         to={'/recovery'}>Recovery
                     </NavLink>
-                    {/*<NavLink*/}
-                    {/*    className={h.link}*/}
-                    {/*    activeClassName={h.active}*/}
-                    {/*    to={'/new-password'}>New Password*/}
-                    {/*</NavLink>*/}
                 </div>
             </div>
         </div>

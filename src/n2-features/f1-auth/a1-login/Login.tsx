@@ -24,10 +24,5 @@ export const Login = () => {
         return <Redirect to={'/profile'}/>
     }
 
-    return <>
-
-        <CommonForm type={'Login'} callBack={callBackHandler}/>
-
-    </>
-
+    return <CommonForm type={'Login'} callBack={callBackHandler}/>
 }
