@@ -1,5 +1,5 @@
-import {Dispatch} from "redux";
 import {registerApi} from "../../../n3-dall/api/api_cards";
+import {AppThunkType} from "../../../n1-main/m2-bll/store/redux-store";
 
 // Actions
 const SET_REGISTER_DATA = 'friday_teamwork_project/register-reducer/SET_REGISTER_DATA';
@@ -32,8 +32,8 @@ export const setRegisterDataAC = (isRegister: boolean) => ({
 } as const)
 
 // Thunk Creators
-export const registerUser = (email: string, password: string) => {
-    return (dispatch: Dispatch) => {
+export const registerUser = (email: string, password: string): AppThunkType => {
+    return (dispatch) => {
         registerApi.registerUser(email, password)
             .then((res) => {
                 if (res.data.addedUser._id.length > 0) {
