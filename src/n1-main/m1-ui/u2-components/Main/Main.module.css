@@ -1,0 +1,15 @@
+.main {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    font-family: Poppins, sans-serif;
+    font-weight: 700;
+    font-stretch: normal;
+}
+
+.container {
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
