@@ -3,6 +3,10 @@ import {useState} from "react";
 import s from './CommonForm.module.css';
 import SuperInputText from "../Super-Components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../Super-Components/c2-SuperButton/SuperButton";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../m2-bll/store/redux-store";
+import {StatusType} from "../../u1-app/app-reducer";
+import {Preloader} from "../Super-Components/c7-Preloader/Preloader";
 
 type FormikErrorType = {
     email?: string
@@ -11,12 +15,13 @@ type FormikErrorType = {
 }
 
 type FormPropsType = {
-    type: 'Login' | 'Register' | 'Recovery password'
+    type: 'Login' | 'Register' | 'Recovery password' | 'New password'
     callBack?: (values: any) => void
 }
 
 export const CommonForm = (props: FormPropsType) => {
 
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
     const [type, setType] = useState<string>('password')
 
     const showHide = () => {
@@ -47,6 +52,13 @@ export const CommonForm = (props: FormPropsType) => {
         }
     }
 
+    if (props.type === 'New password') {
+        initialValues = {
+            password: '',
+            confirmPassword: '',
+        }
+    }
+
     // SET initial values for Formik end
     const formik = useFormik({
 
@@ -72,7 +84,7 @@ export const CommonForm = (props: FormPropsType) => {
                 }
             }
 
-            if (props.type === 'Register') { // Check CONFIRM PASSWORD field only if form for Register
+            if (props.type === 'Register' || props.type === 'New password') { // Check CONFIRM PASSWORD field only if form for Register
                 if (!values.confirmPassword) {
                     errors.confirmPassword = 'Confirm password is required';
                 } else if (values.password !== values.confirmPassword) {
@@ -140,6 +152,7 @@ export const CommonForm = (props: FormPropsType) => {
         return <>
             <div className={s.buttonFormRegister}>
                 <SuperButton
+                    disabled={status === "loading"}
                     className={s.button}
                     type="submit">{title}
                 </SuperButton>
@@ -179,16 +192,20 @@ export const CommonForm = (props: FormPropsType) => {
     }
 
     return (
-        <div className={s.authRegister}>
-            <div className={s.wrapper}>
-                <span className={s.incubator}>It-incubator</span>
-                {/* Form Title */}
-                <span className={s.signUp}>{props.type}</span>
-                <form onSubmit={formik.handleSubmit}>
-                    {/* Form generator function */}
-                    {formGenerator()}
-                </form>
+        <>
+            {status === "loading" && <Preloader/>}
+            <div className={s.authRegister}>
+                <div className={s.wrapper}>
+                    <span className={s.incubator}>It-incubator</span>
+                    {/* Form Title */}
+                    <span className={s.signUp}>{props.type}</span>
+                    <form onSubmit={formik.handleSubmit}>
+                        {/* Form generator function */}
+                        {formGenerator()}
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
+
     )
 }

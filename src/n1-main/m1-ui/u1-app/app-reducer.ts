@@ -1,5 +1,4 @@
 // Actions
-
 const SET_ERROR = 'friday_teamwork_project/app-reducer/SET_ERROR';
 const CHANGE_STATUS = 'friday_teamwork_project/app-reducer/CHANGE_STATUS';
 

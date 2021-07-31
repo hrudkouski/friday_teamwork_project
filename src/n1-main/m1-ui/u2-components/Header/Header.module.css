@@ -3,7 +3,7 @@
     background-color: #1B2734;
     display: flex;
     justify-content: center;
-    position: fixed;
+    position: absolute;
     width: 100%;
     z-index: 2;
 }

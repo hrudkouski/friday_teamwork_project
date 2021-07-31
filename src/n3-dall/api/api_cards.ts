@@ -22,7 +22,7 @@ export const recoveryPasswordApi = {
 
 export const loginApi = {
     login(user: ProfileType) {
-        return instance.post(`auth/login/`, {
+        return instance.post(`auth/login`, {
             email: user.email,
             password: user.password,
             rememberMe: user.rememberMe
@@ -31,6 +31,9 @@ export const loginApi = {
     logOut() {
         return instance.delete('auth/me')
     },
+    // authMe() {
+    //     return instance.post('auth/login')
+    // }
 }
 
 export const registerApi = {

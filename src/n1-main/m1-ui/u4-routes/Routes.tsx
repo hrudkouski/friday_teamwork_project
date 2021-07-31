@@ -29,7 +29,7 @@ export const Routes = () => {
                 <Route path={PATH.PROFILE} render={() => <Profile/>}/>
                 <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
                 <Route path={`${PATH.NEW_PASSWORD}/:token`} render={() => <NewPassword/>}/>
-                <Route path={PATH.PACKS_LIST} render={() => <span>packList</span>}/>
+                <Route path={PATH.PACKS_LIST} render={() => <span style={{color: '#fff'}}>packList</span>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
                 <Route path={PATH.ERROR_404} render={() => <Error404/>}/>
                 <Redirect from={PATH.UNKNOWN_PAGE} to={PATH.ERROR_404}/>
