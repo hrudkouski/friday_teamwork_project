@@ -47,6 +47,13 @@ export const registerApi = {
 export const cardsApi = {
     getCards() {
         return instance.get<ResponseDataType>(`/cards/pack`)
+    },
+    createCards(title: string) {
+        return instance.post(`/cards/pack`, {
+            cardsPack: {
+                name: title
+            }
+        })
     }
 }
 
