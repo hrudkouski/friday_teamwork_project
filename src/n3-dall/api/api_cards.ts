@@ -44,3 +44,28 @@ export const registerApi = {
     },
 }
 
+export const cardsApi = {
+    getCards() {
+        return instance.get<ResponseDataType>(`/cards/pack`)
+    }
+}
+
+export type CardPacksDataType = {
+    _id: string
+    user_id: string
+    user_name: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: Date
+}
+
+export type ResponseDataType = {
+    cardPacks: Array<CardPacksDataType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
+
