@@ -6,6 +6,8 @@ import {ChangeEvent, useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import SuperInputText from "../../u3-common/Super-Components/c1-SuperInputText/SuperInputText";
 import {createPacks, deletePacks, setPacks} from "./packs-reducer";
+import {StatusType} from "../../u1-app/app-reducer";
+import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
 
 export const Packs = () => {
 
@@ -13,6 +15,7 @@ export const Packs = () => {
 
     const dispatch = useDispatch();
     const cards = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.cards.cardPacks)
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     useEffect(() => {
         dispatch(setPacks)
@@ -20,6 +23,9 @@ export const Packs = () => {
 
     const createCardsHandler = () => {
         dispatch(createPacks(title))
+        if(title !== '') {
+            setTitle('')
+        }
     }
     const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
@@ -40,15 +46,21 @@ export const Packs = () => {
                 <td><SuperButton>View</SuperButton></td>
                 <td><SuperButton>Train</SuperButton></td>
                 <td><SuperButton>Update</SuperButton></td>
-                <td><SuperButton onClick={deletePacksHandler}>Delete</SuperButton></td>
+                <td>
+                    <SuperButton onClick={deletePacksHandler}
+                                 disabled={c.entityStatus === "loading"}>Delete
+                    </SuperButton>
+                </td>
             </tr>
         )
     })
 
     return (
         <div className={s.packsContainer}>
+            {status === "loading" && <Preloader/>}
+
             <SuperInputText value={title} onChange={changeTitleHandler}/>
-            <SuperButton onClick={createCardsHandler}>Add Cards</SuperButton>
+            <SuperButton onClick={createCardsHandler} disabled={status === "loading"}>Add Cards</SuperButton>
 
             <table>
                 <thead className={s.packsHeader}>
@@ -64,7 +76,7 @@ export const Packs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {copyCards}
+                    {copyCards}
                 </tbody>
             </table>
         </div>
