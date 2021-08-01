@@ -5,7 +5,7 @@ import {CardPacksDataType} from "../../../../n3-dall/api/api_cards";
 import {ChangeEvent, useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import SuperInputText from "../../u3-common/Super-Components/c1-SuperInputText/SuperInputText";
-import {createPacks, setPacks} from "./packs-reducer";
+import {createPacks, deletePacks, setPacks} from "./packs-reducer";
 
 export const Packs = () => {
 
@@ -28,8 +28,11 @@ export const Packs = () => {
     const copyCards = cards.map(c => {
 
         const time = c.created.slice(11, -8)
+        const deletePacksHandler = () => {
+            dispatch(deletePacks(c._id))
+        }
         return (
-            <tr>
+            <tr key={c._id}>
                 <td>{c.user_name}</td>
                 <td>{c.name}</td>
                 <td>{c.cardsCount}</td>
@@ -37,7 +40,7 @@ export const Packs = () => {
                 <td><SuperButton>View</SuperButton></td>
                 <td><SuperButton>Train</SuperButton></td>
                 <td><SuperButton>Update</SuperButton></td>
-                <td><SuperButton>Delete</SuperButton></td>
+                <td><SuperButton onClick={deletePacksHandler}>Delete</SuperButton></td>
             </tr>
         )
     })

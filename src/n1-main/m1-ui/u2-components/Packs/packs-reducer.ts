@@ -23,7 +23,7 @@ export const packsReducer = (state: InitialStateType = initialState, action: Act
 export const setPacksAC = (cards: Array<CardPacksDataType>) => ({type: "CARDS/SET_CARDS", cards} as const)
 
 export const setPacks = (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType>) => {
-    cardsApi.getCards()
+    cardsApi.getPacks()
         .then(response => {
             dispatch(setPacksAC(response.data.cardPacks))
         })
@@ -31,7 +31,15 @@ export const setPacks = (dispatch: ThunkDispatch<AppRootStateType, unknown, Acti
 
 export const createPacks = (title: string) =>
     (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType>) => {
-    cardsApi.createCards(title)
+    cardsApi.createPacks(title)
+        .then(response => {
+            dispatch(setPacks)
+        })
+}
+
+export const deletePacks = (_id: string) =>
+    (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType>) => {
+    cardsApi.deletePacks(_id)
         .then(response => {
             dispatch(setPacks)
         })
