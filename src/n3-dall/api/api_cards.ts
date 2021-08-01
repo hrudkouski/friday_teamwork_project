@@ -1,5 +1,6 @@
 import axios from "axios";
 import {ProfileType} from "../../n2-features/f1-auth/a1-login/login-reducer";
+import {EntityStatusType} from "../../n1-main/m1-ui/u2-components/Packs/packs-reducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -42,5 +43,41 @@ export const registerApi = {
             email, password
         })
     },
+}
+
+export const cardsApi = {
+    getPacks() {
+        return instance.get<ResponseDataType>(`/cards/pack`)
+    },
+    createPacks(title: string) {
+        return instance.post(`/cards/pack`, {
+            cardsPack: {
+                name: title
+            }
+        })
+    },
+    deletePacks(id: string) {
+        return instance.delete<CardPacksDataType>(`/cards/pack?id=${id}`)
+    }
+}
+
+export type CardPacksDataType = {
+    _id: string
+    user_id: string
+    user_name: string
+    name: string
+    cardsCount: number
+    created: string
+    updated: Date
+    entityStatus: EntityStatusType
+}
+
+export type ResponseDataType = {
+    cardPacks: Array<CardPacksDataType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
 }
 
