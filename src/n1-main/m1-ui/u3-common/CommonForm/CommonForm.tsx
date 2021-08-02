@@ -138,7 +138,6 @@ export const CommonForm = (props: FormPropsType) => {
             <div className={s.inputFormRegister}>
                 <label htmlFor="confirmPassword">Confirm password</label>
                 <SuperInputText
-                    id="confirmPassword"
                     type="password"
                     {...formik.getFieldProps('confirmPassword')}
                 />

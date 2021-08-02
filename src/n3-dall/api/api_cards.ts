@@ -58,6 +58,14 @@ export const cardsApi = {
     },
     deletePacks(id: string) {
         return instance.delete<CardPacksDataType>(`/cards/pack?id=${id}`)
+    },
+    updatePacks(_id: string, name: string) {
+        return instance.put(`/cards/pack`, {
+            cardsPack: {
+                _id,
+                name
+            }
+        })
     }
 }
 

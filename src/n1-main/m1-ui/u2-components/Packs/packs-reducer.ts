@@ -59,9 +59,22 @@ export const deletePacks = (_id: string) =>
         })
 }
 
+export const updatePacks = (_id: string, name: string) =>
+    (dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType | AppActionsType>) => {
+        dispatch(changeStatusAC("loading"))
+        dispatch(setEntityStatusPacksAC("loading", _id))
+    cardsApi.updatePacks(_id, name)
+        .then(response => {
+            dispatch(setPacks)
+            dispatch(changeStatusAC("succeeded"))
+            dispatch(setEntityStatusPacksAC("succeeded", _id))
+        })
+}
+
 export type InitialStateType = ResponseDataType
 export type EntityStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
-export type ActionsType = ReturnType<typeof setPacksAC> | ReturnType<typeof setEntityStatusPacksAC>
+export type ActionsType = ReturnType<typeof setPacksAC>
+    | ReturnType<typeof setEntityStatusPacksAC>
 
 
