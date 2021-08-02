@@ -14,11 +14,13 @@ export const passwordRecovery = (email: string, from: string, message: {}) => (d
     recoveryPasswordApi.passwordRecovery(email, from, message)
         .then(response => {
             dispatch(changeStatusAC("succeeded"))
+            alert('Instructions send your mail')
         })
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
+            dispatch(changeStatusAC("failed"))
             console.log(error)
             alert(error)
         })

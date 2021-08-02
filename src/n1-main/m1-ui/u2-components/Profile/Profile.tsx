@@ -6,6 +6,7 @@ import {useCallback} from "react";
 import {Redirect} from "react-router-dom";
 import {StatusType} from "../../u1-app/app-reducer";
 import p from './Profile.module.css'
+import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
 
 export const Profile = () => {
 
@@ -22,12 +23,15 @@ export const Profile = () => {
     }
 
     return (
-        <div className={p.profile}>
-            Profile Page
-            <SuperButton
-                disabled={status === "loading"}
-                onClick={logOutHandler}>LOG OUT
-            </SuperButton>
-        </div>
+        <>
+            {status === "loading" && <Preloader/>}
+            <div className={p.profile}>
+                Profile Page
+                <SuperButton
+                    disabled={status === "loading"}
+                    onClick={logOutHandler}>LOG OUT
+                </SuperButton>
+            </div>
+        </>
     )
 }

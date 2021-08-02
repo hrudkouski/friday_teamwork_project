@@ -78,6 +78,7 @@ export const loginTC = (profile: ProfileType): AppThunkType => (dispatch) => {
             alert('User: ' + profile.email + ' has been Successfully logged in!')
         })
         .catch((err) => {
+            dispatch(changeStatusAC("failed"))
             console.log(err.message)
             alert('Invalid email or password')
         })
@@ -92,7 +93,7 @@ export const logOutTC = (): AppThunkType => (dispatch) => {
             alert("logOut success —ฅᐠ.̫ .ᐟฅ—")
         })
         .catch((err) => {
-            console.log(err.message)
+            dispatch(changeStatusAC("failed"))
             alert(err.message)
         })
 }
