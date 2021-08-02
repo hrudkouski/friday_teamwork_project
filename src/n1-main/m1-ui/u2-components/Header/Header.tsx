@@ -10,12 +10,12 @@ export const Header = () => {
                     <NavLink
                         className={h.link}
                         activeClassName={h.activeLink}
-                        to={'/login'}>Sign in
+                        to={'/register'}>Sign up
                     </NavLink>
                     <NavLink
                         className={h.link}
                         activeClassName={h.activeLink}
-                        to={'/register'}>Sign up
+                        to={'/login'}>Sign in
                     </NavLink>
                     <NavLink
                         className={h.link}
@@ -26,11 +26,6 @@ export const Header = () => {
                         className={h.link}
                         activeClassName={h.activeLink}
                         to={'/packList'}>Packs List
-                    </NavLink>
-                    <NavLink
-                        className={h.link}
-                        activeClassName={h.activeLink}
-                        to={'/recovery'}>Recovery
                     </NavLink>
                 </div>
             </div>

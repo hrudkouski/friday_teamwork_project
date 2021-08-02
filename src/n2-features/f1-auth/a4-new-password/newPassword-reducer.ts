@@ -23,11 +23,13 @@ export const newPassword = (password: string, resetPasswordToken: {}) => (dispat
         .then(response => {
             dispatch(passwordChanged(true))
             dispatch(changeStatusAC("succeeded"))
+            alert('Password is changed!')
         })
         .catch((e) => {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', more details in the console');
+            dispatch(changeStatusAC("failed"))
             console.log(error)
             alert(error)
         })
