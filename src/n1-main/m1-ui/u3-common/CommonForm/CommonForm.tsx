@@ -8,6 +8,7 @@ import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../Super-Components/c7-Preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import {Toaster} from 'react-hot-toast';
 
 type FormikErrorType = {
     email?: string
@@ -245,6 +246,7 @@ export const CommonForm = (props: FormPropsType) => {
 
     return (
         <>
+            <div><Toaster/></div>
             {status === "loading" && <Preloader/>}
             <div className={s.commonForm}>
                 <div className={s.wrapper}>
