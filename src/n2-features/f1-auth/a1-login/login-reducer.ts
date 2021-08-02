@@ -1,6 +1,7 @@
 import {loginApi} from "../../../n3-dall/api/api_cards";
 import {AppThunkType} from "../../../n1-main/m2-bll/store/redux-store";
 import {changeStatusAC} from "../../../n1-main/m1-ui/u1-app/app-reducer";
+import {toast} from "react-hot-toast";
 
 // Actions
 const SET_IS_LOGGED_IN = 'friday_teamwork_project/login-reducer/SET_IS_LOGGED_IN';
@@ -72,15 +73,14 @@ export const authMeAC = (isAmAuth: boolean) => ({
 export const loginTC = (profile: ProfileType): AppThunkType => (dispatch) => {
     dispatch(changeStatusAC("loading"))
     loginApi.login(profile)
-        .then(() => {
+        .then((res) => {
+            toast.success('Login successful')
             dispatch(changeStatusAC("succeeded"))
             dispatch(logInAC(profile, true))
-            alert('User: ' + profile.email + ' has been Successfully logged in!')
         })
         .catch((err) => {
             dispatch(changeStatusAC("failed"))
-            console.log(err.message)
-            alert('Invalid email or password')
+            toast.error(err.message)
         })
 }
 
@@ -88,13 +88,13 @@ export const logOutTC = (): AppThunkType => (dispatch) => {
     dispatch(changeStatusAC("loading"))
     loginApi.logOut()
         .then(() => {
+            toast.success("logOut success —ฅᐠ.̫ .ᐟฅ—")
             dispatch(changeStatusAC("succeeded"))
             dispatch(logOutAC(false))
-            alert("logOut success —ฅᐠ.̫ .ᐟฅ—")
         })
         .catch((err) => {
+            toast.error(err.message)
             dispatch(changeStatusAC("failed"))
-            alert(err.message)
         })
 }
 
