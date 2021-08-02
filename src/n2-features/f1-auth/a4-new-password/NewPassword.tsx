@@ -7,7 +7,6 @@ import {Preloader} from "../../../n1-main/m1-ui/u3-common/Super-Components/c7-Pr
 import {CommonForm} from "../../../n1-main/m1-ui/u3-common/CommonForm/CommonForm";
 
 export const NewPassword = () => {
-
     const dispatch = useDispatch()
     const {token} = useParams<{token: string}>()
     const isPasswordChanged = useSelector<AppRootStateType, boolean>(state => state.newPassword.isPasswordChanged)

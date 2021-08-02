@@ -5,6 +5,7 @@ import {logOutTC} from "../../../../n2-features/f1-auth/a1-login/login-reducer";
 import {useCallback} from "react";
 import {Redirect} from "react-router-dom";
 import {StatusType} from "../../u1-app/app-reducer";
+import p from './Profile.module.css'
 
 export const Profile = () => {
 
@@ -21,12 +22,12 @@ export const Profile = () => {
     }
 
     return (
-        <>
+        <div className={p.profile}>
             Profile Page
             <SuperButton
                 disabled={status === "loading"}
                 onClick={logOutHandler}>LOG OUT
             </SuperButton>
-        </>
+        </div>
     )
 }

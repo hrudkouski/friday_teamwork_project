@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../Super-Components/c7-Preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 type FormikErrorType = {
     email?: string
@@ -16,16 +17,16 @@ type FormikErrorType = {
 
 type FormPropsType = {
     type: 'Login' | 'Register' | 'Recovery password' | 'New password'
-    callBack?: (values: any) => void
+    callBack: (values: any) => void
 }
 
 export const CommonForm = (props: FormPropsType) => {
 
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
-    const [type, setType] = useState<string>('password')
+    const [typeIcon, setTypeIcon] = useState<string>('password')
 
     const showHide = () => {
-        setType(type === 'text' ? 'password' : 'text')
+        setTypeIcon(typeIcon === 'text' ? 'password' : 'text')
     }
 
     // SET initial values for Formik start
@@ -54,6 +55,7 @@ export const CommonForm = (props: FormPropsType) => {
 
     if (props.type === 'New password') {
         initialValues = {
+            email: 'test@gmail.com',
             password: '',
             confirmPassword: '',
         }
@@ -72,7 +74,7 @@ export const CommonForm = (props: FormPropsType) => {
                 errors.email = 'Invalid email address';
             }
 
-            if (props.type === 'Login' || props.type === 'Register') { // Check PASSWORD field only if form for Login or Register
+            if (props.type === 'Login' || props.type === 'Register' || props.type === 'New password') { // Check PASSWORD field only if form for Login or Register or New password
                 if (!values.password) {
                     errors.password = 'Password is required';
                 } else if (!/(?=.*[0-9])/gi.test(values.password)) {
@@ -84,7 +86,8 @@ export const CommonForm = (props: FormPropsType) => {
                 }
             }
 
-            if (props.type === 'Register' || props.type === 'New password') { // Check CONFIRM PASSWORD field only if form for Register
+            if (props.type === 'Register' || props.type === 'New password'
+            ) { // Check CONFIRM PASSWORD field only if form for Register or New password
                 if (!values.confirmPassword) {
                     errors.confirmPassword = 'Confirm password is required';
                 } else if (values.password !== values.confirmPassword) {
@@ -95,7 +98,7 @@ export const CommonForm = (props: FormPropsType) => {
             return errors;
         },
         onSubmit: values => {
-            props.callBack && props.callBack(values)
+            props.callBack(values)
             formik.resetForm();
         },
     });
@@ -103,11 +106,12 @@ export const CommonForm = (props: FormPropsType) => {
     // Reusable Email Field
     const emailField = () => {
         return <>
-            <div className={s.inputFormRegister}>
-                <label htmlFor="email">Email</label>
+            <div className={s.inputFormCommon}>
+                <label htmlFor="email"/>
                 <SuperInputText
                     id="email"
                     type="email"
+                    placeholder='e-mail'
                     {...formik.getFieldProps('email')}
                 />
                 {formik.errors.email && formik.touched.email &&
@@ -118,15 +122,16 @@ export const CommonForm = (props: FormPropsType) => {
     // Reusable Password Field
     const passwordField = () => {
         return <>
-            <div className={s.inputFormRegister}>
-                <label htmlFor="password">Password</label>
+            <div className={s.inputFormCommon}>
+                <label htmlFor="password"/>
                 <SuperInputText
                     id="password"
-                    type={type}
+                    placeholder='password'
+                    type={typeIcon}
                     {...formik.getFieldProps('password')}
                 />
                 <span className={s.showHideMenu}
-                      onClick={showHide}>{type === 'text' ? '🔒' : '🔑'}</span>
+                      onClick={showHide}>{typeIcon === 'text' ? '🔒' : '🔑'}</span>
                 {formik.errors.password && formik.touched.password &&
                 <div className={s.errorMessage}>{formik.errors.password}</div>}
             </div>
@@ -135,11 +140,12 @@ export const CommonForm = (props: FormPropsType) => {
     // Reusable Confirm Password Field
     const confirmPasswordField = () => {
         return <>
-            <div className={s.inputFormRegister}>
-                <label htmlFor="confirmPassword">Confirm password</label>
+            <div className={s.inputFormCommon}>
+                <label htmlFor="confirmPassword"/>
                 <SuperInputText
                     id="confirmPassword"
                     type="password"
+                    placeholder='confirm password'
                     {...formik.getFieldProps('confirmPassword')}
                 />
                 {formik.errors.confirmPassword && formik.touched.confirmPassword &&
@@ -150,7 +156,7 @@ export const CommonForm = (props: FormPropsType) => {
     // Reusable Button
     const submitButton = (title: string) => {
         return <>
-            <div className={s.buttonFormRegister}>
+            <div className={s.commonFormButton}>
                 <SuperButton
                     disabled={status === "loading"}
                     className={s.button}
@@ -160,7 +166,7 @@ export const CommonForm = (props: FormPropsType) => {
         </>
     }
 
-    // Form Generator 
+    // Form Generator
     const formGenerator = () => {
         switch (props.type) {
             case 'Login' :
@@ -179,7 +185,13 @@ export const CommonForm = (props: FormPropsType) => {
             case 'Recovery password' :
                 return <>
                     {emailField()}
-                    {submitButton('Reset')}
+                    {submitButton('Send')}
+                </>
+            case 'New password' :
+                return <>
+                    {passwordField()}
+                    {confirmPasswordField()}
+                    {submitButton('Send')}
                 </>
             default :
                 return <>
@@ -191,21 +203,64 @@ export const CommonForm = (props: FormPropsType) => {
         }
     }
 
+    const formTitle = (type: string) => {
+        switch (type) {
+            case 'Login':
+                return 'Sign In'
+            case 'Register':
+                return 'Sign Up'
+            case 'Recovery password':
+                return 'Recover Password'
+            case 'New password':
+                return 'New Password'
+            default:
+                return ''
+        }
+    }
+
+    const formDescription = (type: string) => {
+        switch (type) {
+            case 'Register':
+                return 'Please fill in the form below'
+            case 'Recovery password':
+                return 'Please, enter your email';
+            case 'New password':
+                return 'Please, enter and confirm your new password'
+            default:
+                return ''
+        }
+    }
+
+    const loginAdditionalField = (type: string) => {
+        switch (type) {
+            case 'Login':
+                return <div className={s.loginAdditionalField}>
+                    <NavLink to='/recovery'>Forgot your password?</NavLink>
+                    <NavLink to='/register'>Go to sign up</NavLink>
+                </div>
+            default:
+                return null;
+        }
+    }
+
     return (
         <>
             {status === "loading" && <Preloader/>}
-            <div className={s.authRegister}>
+            <div className={s.commonForm}>
                 <div className={s.wrapper}>
-                    <span className={s.incubator}>It-incubator</span>
                     {/* Form Title */}
-                    <span className={s.signUp}>{props.type}</span>
+                    <span className={s.formTitle}>{formTitle(props.type)}</span>
+                    {/* Form Description */}
+                    <span className={s.formDescription}>{formDescription(props.type)}</span>
+
                     <form onSubmit={formik.handleSubmit}>
                         {/* Form generator function */}
                         {formGenerator()}
                     </form>
+                    {/* Form additional field*/}
+                    {loginAdditionalField(props.type)}
                 </div>
             </div>
         </>
-
     )
 }

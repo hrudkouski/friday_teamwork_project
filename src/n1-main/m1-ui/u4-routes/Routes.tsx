@@ -22,7 +22,7 @@ export const PATH = {
 
 export const Routes = () => {
     return (
-        <div style={{marginTop: '100px'}}>
+        <div>
             <Switch>
                 <Route exact path={'/'} render={() => <Redirect to={PATH.LOGIN}/>}/>
                 <Route path={PATH.LOGIN} render={() => <Login/>}/>
