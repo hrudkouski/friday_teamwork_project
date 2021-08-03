@@ -1,34 +1,27 @@
 .header {
     height: 90px;
-    background-color: #1B2734;
+    background-color: #1b2734;
     display: flex;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-    z-index: 2;
-}
 
-.wrapper {
-    width: 90%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-.navMenu {
-    width: 500px;
-    display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
-    z-index: 100;
+    align-items: center;
+    width: 100%;
 }
 
 .link {
     color: white;
     text-decoration: none;
-    margin: 0 3px;
+    margin: 0 20px 0 0;
     padding: 3px;
     text-transform: uppercase;
+}
+.linkDisabled {
+    color: rgb(179, 179, 179);
+    text-decoration: none;
+    margin: 0 20px 0 0;
+    padding: 3px;
+    text-transform: uppercase;
+    cursor: default;
 }
 
 .link:hover {
@@ -37,7 +30,7 @@
 
 .activeLink {
     font-weight: bold;
-    border-bottom: 5px solid #E92539;
+    border-bottom: 5px solid #e92539;
 }
 
 @media (max-width: 580px) {

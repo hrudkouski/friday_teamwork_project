@@ -7,6 +7,10 @@ import {Error404} from "../../../n2-features/f3-error/Error404";
 import {Profile} from "../u2-components/Profile/Profile";
 import {Register} from "../../../n2-features/f1-auth/a2-register/Register";
 import {Packs} from "../u2-components/Packs/Packs";
+import { useDispatch, useSelector } from "react-redux";
+import { AppRootStateType } from "../../m2-bll/store/redux-store";
+import { useEffect } from "react";
+import { authMeTC } from "../../../n2-features/f1-auth/a1-login/login-reducer";
 
 export const PATH = {
     LOGIN: '/login',
@@ -21,8 +25,9 @@ export const PATH = {
 }
 
 export const Routes = () => {
+    
     return (
-        <div style={{marginTop: '100px'}}>
+        <div>
             <Switch>
                 <Route exact path={'/'} render={() => <Redirect to={PATH.LOGIN}/>}/>
                 <Route path={PATH.LOGIN} render={() => <Login/>}/>

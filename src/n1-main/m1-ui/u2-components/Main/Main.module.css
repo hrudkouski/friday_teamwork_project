@@ -2,6 +2,7 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
     font-family: Poppins, sans-serif;
     font-weight: 700;
     font-stretch: normal;
@@ -9,7 +10,10 @@
 
 .container {
     width: 80%;
+    height: 100vh;
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: column;
+    /* background-color: wheat; */
+
+    /* justify-content: center; */
 }

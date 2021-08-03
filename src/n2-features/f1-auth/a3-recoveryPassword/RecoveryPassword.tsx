@@ -9,7 +9,8 @@ export const RecoveryPassword = () => {
     const from = "test-front-admin <ai73a@yandex.by>"
     const message =
         `<div>
-            <a href='https://hrudkouski.github.io/friday_teamwork_project/#/new-password/$token$'>link</a> 
+                Please, click on the link and enter a new password
+            <a href='http://localhost:3000/#/new-password/$token$'>Go to recovery password</a> 
         </div>`
 
     const recoveryCallBackHandler = (values: any) => {

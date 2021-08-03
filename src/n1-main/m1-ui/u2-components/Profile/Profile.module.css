@@ -1,0 +1,20 @@
+.profile {
+    min-width: 100%;
+    min-height: 70vh;
+    /* margin-top: 100px; */
+    margin-left: auto;
+    /* background-color: burlywood; */
+    color: white;
+}
+.title {
+    text-align: center;
+}
+.greeting {
+    text-align: center;
+    font-size: 1.3em;
+    margin: 30px;
+}
+.numberOfPacks {
+    text-align: center;
+    /* font-size: 1.3em; */
+}

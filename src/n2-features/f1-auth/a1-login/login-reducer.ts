@@ -1,6 +1,7 @@
 import {loginApi} from "../../../n3-dall/api/api_cards";
 import {AppThunkType} from "../../../n1-main/m2-bll/store/redux-store";
 import {changeStatusAC} from "../../../n1-main/m1-ui/u1-app/app-reducer";
+import {toast} from "react-hot-toast";
 
 // Actions
 const SET_IS_LOGGED_IN = 'friday_teamwork_project/login-reducer/SET_IS_LOGGED_IN';
@@ -12,22 +13,40 @@ export type LoginActionsType =
     | ReturnType<typeof logInAC>
     | ReturnType<typeof logOutAC>
     | ReturnType<typeof authMeAC>;
-export type ProfileType = {
+
+export type ProfileResponseType = {
+    created: string
     email: string
-    password: string
+    isAdmin: boolean
+    name: string
+    publicCardPacksCount: number
     rememberMe: boolean
+    token: string
+    tokenDeathTime: number
+    updated: string
+    verified: boolean
+    __v: number
+    _id: string
 }
 type InitialStateType = typeof initialState;
 
 // Initial State
 const initialState = {
     profile: {
+        created: '',
         email: '',
-        password: '',
+        isAdmin: false,
+        name: '',
+        publicCardPacksCount: 0,
         rememberMe: false,
+        token: '',
+        tokenDeathTime: 0,
+        updated: '',
+        verified: false,
+        __v: 0,
+        _id: ''
     } || null,
     isLoggedIn: false,
-    isAmAuth: false,
 }
 
 // Reducer
@@ -49,7 +68,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
         case SET_IS_AM_AUTH: {
             return {
                 ...state,
-                isAmAuth: action.isAmAuth
+                isLoggedIn: action.isAmAuth
             }
         }
         default:
@@ -58,7 +77,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 }
 
 // Actions Creators
-export const logInAC = (profile: ProfileType, isLoggedIn: boolean) => ({
+export const logInAC = (profile: ProfileResponseType, isLoggedIn: boolean) => ({
     type: SET_IS_LOGGED_IN, profile, isLoggedIn
 } as const)
 export const logOutAC = (isLoggedIn: boolean) => ({
@@ -69,17 +88,17 @@ export const authMeAC = (isAmAuth: boolean) => ({
 } as const)
 
 // Thunk Creators
-export const loginTC = (profile: ProfileType): AppThunkType => (dispatch) => {
+export const loginTC = (email: string, password: string, rememberMe: boolean): AppThunkType => (dispatch) => {
     dispatch(changeStatusAC("loading"))
-    loginApi.login(profile)
-        .then(() => {
+    loginApi.login(email, password, rememberMe)
+        .then((res) => {
+            toast.success('Login successful')
             dispatch(changeStatusAC("succeeded"))
-            dispatch(logInAC(profile, true))
-            alert('User: ' + profile.email + ' has been Successfully logged in!')
+            dispatch(logInAC(res.data, true))
         })
         .catch((err) => {
-            console.log(err.message)
-            alert('Invalid email or password')
+            dispatch(changeStatusAC("failed"))
+            toast.error(err.message)
         })
 }
 
@@ -87,28 +106,29 @@ export const logOutTC = (): AppThunkType => (dispatch) => {
     dispatch(changeStatusAC("loading"))
     loginApi.logOut()
         .then(() => {
+            toast.success("logOut success —ฅᐠ.̫ .ᐟฅ—")
             dispatch(changeStatusAC("succeeded"))
             dispatch(logOutAC(false))
-            alert("logOut success —ฅᐠ.̫ .ᐟฅ—")
         })
         .catch((err) => {
-            console.log(err.message)
-            alert(err.message)
+            toast.error(err.message)
+            dispatch(changeStatusAC("failed"))
         })
 }
 
-// export const authMeTC = (): AppThunkType =>
-//     (dispatch) => {
-//     dispatch(changeStatusAC("loading"))
-//     loginApi.authMe()
-//         .then((res) => {
-//             console.log(res)
-//             dispatch(changeStatusAC("succeeded"))
-//             dispatch(authMeAC(true))
-//             alert("logOut success —ฅᐠ.̫ .ᐟฅ—")
-//         })
-//         .catch((err) => {
-//             console.log(err.message)
-//             alert(err.message)
-//         })
-// }
+export const authMeTC = (): AppThunkType =>
+    (dispatch) => {
+    dispatch(changeStatusAC("loading"))
+    loginApi.authMe()
+        .then((res) => {
+            console.log(res)
+            dispatch(changeStatusAC("succeeded"))
+            dispatch(authMeAC(true))
+            dispatch(logInAC(res.data, true))
+        })
+        .catch((err) => {
+            console.log(err.message)
+            dispatch(changeStatusAC("succeeded"))
+            dispatch(authMeAC(false))
+        })
+}
