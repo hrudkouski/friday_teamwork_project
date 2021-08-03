@@ -1,6 +1,6 @@
 import axios from "axios";
-import {ProfileType} from "../../n2-features/f1-auth/a1-login/login-reducer";
 import {EntityStatusType} from "../../n1-main/m1-ui/u2-components/Packs/packs-reducer";
+import { ProfileResponseType } from "../../n2-features/f1-auth/a1-login/login-reducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -22,19 +22,16 @@ export const recoveryPasswordApi = {
 }
 
 export const loginApi = {
-    login(user: ProfileType) {
-        return instance.post(`auth/login`, {
-            email: user.email,
-            password: user.password,
-            rememberMe: user.rememberMe
-        })
+    
+    authMe() {
+        return instance.post<ProfileResponseType>('auth/me')
+    },
+    login(email: string, password: string, rememberMe: boolean) {
+        return instance.post<ProfileResponseType>(`auth/login`, { email, password, rememberMe })
     },
     logOut() {
         return instance.delete('auth/me')
-    },
-    // authMe() {
-    //     return instance.post('auth/login')
-    // }
+    }
 }
 
 export const registerApi = {

@@ -1,5 +1,12 @@
 .commonForm {
-    margin: 100px 10px 10px;
+    /* margin: 100px 10px 10px; */
+    /* background-color: teal; */
+    /* min-height: 100%; */
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper {
@@ -29,7 +36,7 @@
 .formDescription {
     width: 300px;
     height: 30px;
-    color: #EBA300;
+    color: #eba300;
     font-style: normal;
     font-weight: 600;
     font-size: 18px;
@@ -44,9 +51,10 @@
 }
 
 .inputFormCommon input {
-    background-color: #1B2734;
+    background-color: #1b2734;
     width: 350px;
     height: 35px;
+    padding-left: 10px;
     color: white;
     border: 1px solid white;
 }
@@ -60,20 +68,22 @@
     width: fit-content;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #fff;
-    padding: 10px;
+    /* padding: 10px; */
 }
 
 .errorMessage {
-    color: #C52437;
+    margin-top: -10px;
+    color: #c52437;
     font-size: 0.7em;
     text-align: center;
 }
 
 .showHideMenu {
     position: relative;
-    bottom: 53px;
+    bottom: 50px;
     left: 333px;
     width: 30px;
     cursor: pointer;
@@ -99,12 +109,12 @@
     align-items: center;
 }
 
-.loginAdditionalField a{
+.loginAdditionalField a {
     color: #fff;
     margin: 7px;
 }
 
-.loginAdditionalField a:hover{
-    color: #EBA300;
+.loginAdditionalField a:hover {
+    color: #eba300;
     cursor: pointer;
 }
