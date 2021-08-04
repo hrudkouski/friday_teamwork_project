@@ -144,7 +144,6 @@ export const CommonForm = (props: FormPropsType) => {
             <div className={s.inputFormCommon}>
                 <label htmlFor="confirmPassword"/>
                 <SuperInputText
-                    id="confirmPassword"
                     type="password"
                     placeholder='confirm password'
                     {...formik.getFieldProps('confirmPassword')}
