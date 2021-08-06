@@ -15,7 +15,7 @@ export const Main = () => {
 
     useEffect(() => {
          dispatch(isInitializedTC())
-    }, [])
+    }, [dispatch])
 
     if(!isInitialized){
         return <Preloader />

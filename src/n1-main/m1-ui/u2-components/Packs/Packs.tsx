@@ -9,7 +9,6 @@ import {StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
 import {Pack} from "./Pack/Pack";
 import {Toaster} from "react-hot-toast";
-import {Redirect} from "react-router-dom";
 import {CreatePackModalWindow} from "../../u3-common/ModalWindow/CreatePacks/CreatePackModalWindow";
 import {PaginationComponent} from "../../u3-common/Pagination/Pagination";
 
@@ -20,7 +19,6 @@ export const Packs = () => {
     const dispatch = useDispatch();
     const packs = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.packs.cardPacks)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
@@ -45,10 +43,6 @@ export const Packs = () => {
             </tr>
         )
     })
-
-    if (!isLoggedIn) {
-        return <Redirect to={'/login'}/>
-    }
 
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
