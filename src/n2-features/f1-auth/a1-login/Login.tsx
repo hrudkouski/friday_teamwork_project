@@ -7,18 +7,13 @@ import {CommonForm} from "../../../n1-main/m1-ui/u3-common/CommonForm/CommonForm
 export const Login = () => {
 
 
-    console.log('Login Rendered')
-
     const dispatch = useDispatch();
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
 
-
     const callBackHandler = (values: any) => {
-
         dispatch(loginTC(values.email, values.password, values.rememberMe))
     }
 
-    console.log("isLoggedIn - " + isLoggedIn)
     if (isLoggedIn) {
         return <Redirect to={'/profile'}/>
     }

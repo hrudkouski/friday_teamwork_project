@@ -1,18 +1,16 @@
 import {loginApi} from "../../../n3-dall/api/api_cards";
 import {AppThunkType} from "../../../n1-main/m2-bll/store/redux-store";
-import {changeStatusAC} from "../../../n1-main/m1-ui/u1-app/app-reducer";
+import {changeStatusAC, setIsInitializedAC} from "../../../n1-main/m1-ui/u1-app/app-reducer";
 import {toast} from "react-hot-toast";
 
 // Actions
 const SET_IS_LOGGED_IN = 'friday_teamwork_project/login-reducer/SET_IS_LOGGED_IN';
 const SET_IS_LOGGED_OUT = 'friday_teamwork_project/login-reducer/SET_IS_LOGGED_OUT';
-const SET_IS_AM_AUTH = 'friday_teamwork_project/login-reducer/SET_IS_AM_AUTH';
 
 // Types
 export type LoginActionsType =
     | ReturnType<typeof logInAC>
     | ReturnType<typeof logOutAC>
-    | ReturnType<typeof authMeAC>;
 
 export type ProfileResponseType = {
     created: string
@@ -65,12 +63,6 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
                 isLoggedIn: action.isLoggedIn
             }
         }
-        case SET_IS_AM_AUTH: {
-            return {
-                ...state,
-                isLoggedIn: action.isAmAuth
-            }
-        }
         default:
             return {...state}
     }
@@ -82,9 +74,6 @@ export const logInAC = (profile: ProfileResponseType, isLoggedIn: boolean) => ({
 } as const)
 export const logOutAC = (isLoggedIn: boolean) => ({
     type: SET_IS_LOGGED_OUT, isLoggedIn
-} as const)
-export const authMeAC = (isAmAuth: boolean) => ({
-    type: SET_IS_AM_AUTH, isAmAuth
 } as const)
 
 // Thunk Creators
@@ -109,26 +98,14 @@ export const logOutTC = (): AppThunkType => (dispatch) => {
             toast.success("logOut success —ฅᐠ.̫ .ᐟฅ—")
             dispatch(changeStatusAC("succeeded"))
             dispatch(logOutAC(false))
+            dispatch(setIsInitializedAC(false))
         })
         .catch((err) => {
             toast.error(err.message)
             dispatch(changeStatusAC("failed"))
         })
-}
-
-export const authMeTC = (): AppThunkType =>
-    (dispatch) => {
-    dispatch(changeStatusAC("loading"))
-    loginApi.authMe()
-        .then((res) => {
-            console.log(res)
+        .finally(() => {
+            dispatch(setIsInitializedAC(true))
             dispatch(changeStatusAC("succeeded"))
-            dispatch(authMeAC(true))
-            dispatch(logInAC(res.data, true))
-        })
-        .catch((err) => {
-            console.log(err.message)
-            dispatch(changeStatusAC("succeeded"))
-            dispatch(authMeAC(false))
         })
 }

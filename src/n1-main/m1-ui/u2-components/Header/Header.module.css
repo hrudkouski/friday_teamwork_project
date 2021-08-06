@@ -22,6 +22,7 @@
     padding: 3px;
     text-transform: uppercase;
     cursor: default;
+    pointer-events: none;
 }
 
 .link:hover {

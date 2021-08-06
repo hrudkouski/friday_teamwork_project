@@ -6,8 +6,11 @@ import {ChangeEvent, useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import SuperInputText from "../../u3-common/Super-Components/c1-SuperInputText/SuperInputText";
 import {createPacks, deletePacks, setPacks} from "./packs-reducer";
-import {StatusType} from "../../u1-app/app-reducer";
+import {isInitializedTC, StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
+import { Redirect } from "react-router-dom";
+import { PATH } from "../../u4-routes/Routes";
+import { isTemplateHead } from "typescript";
 
 export const Packs = () => {
 
@@ -19,7 +22,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(setPacks)
-    }, [])
+    }, [dispatch])
 
     const createCardsHandler = () => {
         dispatch(createPacks(title))

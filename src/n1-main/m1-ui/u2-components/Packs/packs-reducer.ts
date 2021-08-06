@@ -35,6 +35,9 @@ export const setPacks = (dispatch: ThunkDispatch<AppRootStateType, unknown, Acti
             dispatch(setPacksAC(response.data.cardPacks))
             dispatch(changeStatusAC("succeeded"))
         })
+        .catch(() => {
+            dispatch(changeStatusAC("failed"))
+        })
 }
 
 export const createPacks = (title: string) =>
@@ -44,6 +47,9 @@ export const createPacks = (title: string) =>
         .then(response => {
             dispatch(setPacks)
             dispatch(changeStatusAC("succeeded"))
+        })
+        .catch(() => {
+            dispatch(changeStatusAC("failed"))
         })
 }
 
