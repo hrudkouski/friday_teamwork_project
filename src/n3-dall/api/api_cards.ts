@@ -22,7 +22,6 @@ export const recoveryPasswordApi = {
 }
 
 export const loginApi = {
-    
     authMe() {
         return instance.post<ProfileResponseType>('auth/me')
     },
@@ -42,9 +41,9 @@ export const registerApi = {
     },
 }
 
-export const cardsApi = {
-    getPacks() {
-        return instance.get<ResponseDataType>(`/cards/pack`)
+export const packsApi = {
+    getPacks(pageCount: number = 7, page: number = 1) {
+        return instance.get<ResponseDataType>(`/cards/pack/?&pageCount=${pageCount}&page=${page}`)
     },
     createPacks(title: string) {
         return instance.post(`/cards/pack`, {
@@ -66,6 +65,7 @@ export const cardsApi = {
     }
 }
 
+// Types
 export type CardPacksDataType = {
     _id: string
     user_id: string

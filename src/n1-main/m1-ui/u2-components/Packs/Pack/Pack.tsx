@@ -2,7 +2,6 @@ import {CardPacksDataType} from "../../../../../n3-dall/api/api_cards";
 import {useState} from "react";
 import SuperButton from "../../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import {UpdatePacksModalWindow} from "../../../u3-common/ModalWindow/UpdatePacks/UpdatePacksModalWindow";
-import s from "./Pack.module.css"
 
 type PackPropsType = {
     pack: CardPacksDataType

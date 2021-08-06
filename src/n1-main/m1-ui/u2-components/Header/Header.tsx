@@ -53,6 +53,7 @@ export const Header = () => {
             <div>
                 {isLoggedIn && 
                     <SuperButton
+                        red
                         disabled={status === "loading"}
                         onClick={logOutHandler}>SIGN OUT
                     </SuperButton>
