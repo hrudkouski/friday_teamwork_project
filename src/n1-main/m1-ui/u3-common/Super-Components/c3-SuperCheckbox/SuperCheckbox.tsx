@@ -29,13 +29,14 @@ const SuperCheckbox: React.FC<SuperCheckboxPropsType> = (
 
     return (
         <label className={s.label}>
+            {children && <span className={s.spanClassName}>{children}</span>}
             <input
                 type={'checkbox'}
                 onChange={onChangeCallback}
                 className={finalInputClassName}
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (checked например там внутри)
             />
-            {children && <span className={s.spanClassName}>{children}</span>}
+            
         </label> // благодаря label нажатие на спан передастся в инпут
     )
 }

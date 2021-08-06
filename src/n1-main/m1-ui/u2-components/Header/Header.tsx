@@ -10,7 +10,7 @@ import h from './Header.module.css'
 export const Header = () => {
 
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const islogedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     const logOutHandler = () => {
@@ -27,23 +27,22 @@ export const Header = () => {
                     to={'/register'}>Sign up
                 </NavLink>
                 
-                {/* Show Sign In or Profile */}
-                {!isLoggedIn ?
+            
                     <NavLink
-                        className={h.link}
+                        className={!islogedIn ? h.link : h.linkDisabled}
                         activeClassName={h.activeLink}
                         to={'/login'}>Sign in
                     </NavLink>
-                    :
+            
                     <NavLink
-                        className={h.link}
+                        className={islogedIn ? h.link : h.linkDisabled}
                         activeClassName={h.activeLink}
                         to={'/profile'}>Profile
                     </NavLink>
-                }
+            
 
                 <NavLink
-                    className={h.link}
+                    className={islogedIn ? h.link : h.linkDisabled}
                     activeClassName={h.activeLink}
                     to={'/packList'}>Packs List
                 </NavLink>
@@ -51,12 +50,15 @@ export const Header = () => {
 
             {/* Sign Out Button Shows only while Signed In */}
             <div>
-                {isLoggedIn && 
+                {islogedIn &&
+                
+                <NavLink to={'/login'}>
                     <SuperButton
                         red
                         disabled={status === "loading"}
                         onClick={logOutHandler}>SIGN OUT
                     </SuperButton>
+                </NavLink>
                 }
             </div>
 
