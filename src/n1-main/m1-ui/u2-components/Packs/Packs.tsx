@@ -24,7 +24,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(setPacks)
-    }, [])
+    }, [dispatch])
 
     const openModalWindow = () => {
         setActiveModalAdd(true)

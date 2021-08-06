@@ -3,17 +3,16 @@
     -webkit-appearance: none;
     outline: none;
     position: relative;
-    background: #E92535;
+    background: #e92535;
     width: 22px;
     opacity: 0.5;
     height: 22px;
     border: white solid 1px;
     border-radius: 50%;
-    box-shadow:
-            -5px -5px 20px rgba(255,255,255,0.1),
-            5px 5px 10px rgba(0,0,0,1),
-            inset -2px -2px 5px rgba(255,255,255,0.1),
-            inset 2px 2px 5px rgba(0,0,0,1);
+    box-shadow: -5px -5px 20px rgba(255, 255, 255, 0.1),
+        5px 5px 10px rgba(0, 0, 0, 1),
+        inset -2px -2px 5px rgba(255, 255, 255, 0.1),
+        inset 2px 2px 5px rgba(0, 0, 0, 1);
     transition: 0.5s;
 }
 
@@ -31,10 +30,18 @@
     border-right: 3px solid yellow;
     transform: rotate(45deg);
     transition: 0.5s;
-    content: "";
+    content: '';
     position: absolute;
     left: 9px;
     top: 4px;
     width: 3px;
     height: 9px;
+}
+.label {
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.spanClassName {
+    margin-right: 5px;
 }

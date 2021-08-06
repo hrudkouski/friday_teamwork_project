@@ -1,19 +1,27 @@
-import {PATH, Routes} from "../../u4-routes/Routes";
+import { Routes } from "../../u4-routes/Routes";
 import {Header} from "../Header/Header";
 import m from './Main.module.css'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import {authMeTC} from "../../../../n2-features/f1-auth/a1-login/login-reducer";
+import { isInitializedTC } from "../../u1-app/app-reducer";
+import { AppRootStateType } from "../../../m2-bll/store/redux-store";
+import { Preloader } from "../../u3-common/Super-Components/c7-Preloader/Preloader";
+
 
 
 
 export const Main = () => {
 
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const dispatch = useDispatch();
-    
+
     useEffect(() => {
-         dispatch(authMeTC())
-    }, [dispatch])
+         dispatch(isInitializedTC())
+    }, [])
+
+    if(!isInitialized){
+        return <Preloader />
+    }
 
     return (
         <div className={m.main}>

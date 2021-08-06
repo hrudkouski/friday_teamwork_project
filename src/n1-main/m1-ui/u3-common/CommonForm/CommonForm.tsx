@@ -3,6 +3,7 @@ import {useState} from "react";
 import s from './CommonForm.module.css';
 import SuperInputText from "../Super-Components/c1-SuperInputText/SuperInputText";
 import SuperButton from "../Super-Components/c2-SuperButton/SuperButton";
+import SuperCheckbox from "../Super-Components/c3-SuperCheckbox/SuperCheckbox";
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {StatusType} from "../../u1-app/app-reducer";
@@ -37,6 +38,7 @@ export const CommonForm = (props: FormPropsType) => {
         initialValues = {
             email: '',
             password: '',
+            rememberMe: false,
         }
     }
 
@@ -153,6 +155,21 @@ export const CommonForm = (props: FormPropsType) => {
             </div>
         </>
     }
+    // Reusable Checkbox Field
+    const checkBoxField = () => {
+        return <>
+            <div className={s.checkBoxFormCommon}>
+                <label htmlFor="rememberMe"/>
+                <SuperCheckbox
+                    id="rememberMe"
+                    type="checkbox"
+                    children={'Remember me'}
+                    //placeholder='confirm password'
+                    {...formik.getFieldProps('rememberMe')}
+                />
+            </div>
+        </>
+    }
     // Reusable Button
     const submitButton = (title: string) => {
         return <>
@@ -173,6 +190,7 @@ export const CommonForm = (props: FormPropsType) => {
                 return <>
                     {emailField()}
                     {passwordField()}
+                    {checkBoxField()}
                     {submitButton('Login')}
                 </>
             case 'Register' :
