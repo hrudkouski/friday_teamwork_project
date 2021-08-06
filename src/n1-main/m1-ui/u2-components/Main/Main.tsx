@@ -8,8 +8,6 @@ import { AppRootStateType } from "../../../m2-bll/store/redux-store";
 import { Preloader } from "../../u3-common/Super-Components/c7-Preloader/Preloader";
 
 
-
-
 export const Main = () => {
 
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)

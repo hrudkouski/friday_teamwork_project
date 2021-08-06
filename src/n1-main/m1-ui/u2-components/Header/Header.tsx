@@ -54,6 +54,7 @@ export const Header = () => {
                 
                 <NavLink to={'/login'}>
                     <SuperButton
+                        red
                         disabled={status === "loading"}
                         onClick={logOutHandler}>SIGN OUT
                     </SuperButton>
