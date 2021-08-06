@@ -2,68 +2,65 @@ import s from "./Packs.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {CardPacksDataType} from "../../../../n3-dall/api/api_cards";
-import {ChangeEvent, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
-import SuperInputText from "../../u3-common/Super-Components/c1-SuperInputText/SuperInputText";
-import {createPacks, deletePacks, setPacks} from "./packs-reducer";
-import {isInitializedTC, StatusType} from "../../u1-app/app-reducer";
+import {deletePacks, setPacks} from "./packs-reducer";
+import {StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
-import { Redirect } from "react-router-dom";
-import { PATH } from "../../u4-routes/Routes";
-import { isTemplateHead } from "typescript";
+import {Pack} from "./Pack/Pack";
+import {Toaster} from "react-hot-toast";
+import {Redirect} from "react-router-dom";
+import {CreatePackModalWindow} from "../../u3-common/ModalWindow/CreatePacks/CreatePackModalWindow";
 
 export const Packs = () => {
 
-    const [title, setTitle] = useState('')
+    const [activeModalAdd, setActiveModalAdd] = useState(false)
 
     const dispatch = useDispatch();
-    const cards = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.cards.cardPacks)
+    const packs = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.packs.cardPacks)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+
 
     useEffect(() => {
         dispatch(setPacks)
     }, [dispatch])
 
-    const createCardsHandler = () => {
+    const openModalWindow = () => {
+        setActiveModalAdd(true)
+    }
+
+    const createPacks = (title: string) => {
         dispatch(createPacks(title))
-        if(title !== '') {
-            setTitle('')
-        }
-    }
-    const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setTitle(e.currentTarget.value)
     }
 
-    const copyCards = cards.map(c => {
+    const deletePack = (id: string) => {
+        dispatch(deletePacks(id))
+    }
 
-        const time = c.created.slice(11, -8)
-        const deletePacksHandler = () => {
-            dispatch(deletePacks(c._id))
-        }
+    const copyPacks = packs.map(c => {
+
         return (
             <tr key={c._id}>
-                <td>{c.user_name}</td>
-                <td>{c.name}</td>
-                <td>{c.cardsCount}</td>
-                <td>{time}</td>
-                <td><SuperButton>View</SuperButton></td>
-                <td><SuperButton>Train</SuperButton></td>
-                <td><SuperButton>Update</SuperButton></td>
-                <td>
-                    <SuperButton onClick={deletePacksHandler}
-                                 disabled={c.entityStatus === "loading"}>Delete
-                    </SuperButton>
-                </td>
+                <Pack deletePacks={deletePack}
+                      pack={c}/>
             </tr>
         )
     })
 
+    if (!isLoggedIn) {
+        return <Redirect to={'/login'}/>
+    }
+
     return (
         <div className={s.packsContainer}>
+            <div><Toaster/></div>
             {status === "loading" && <Preloader/>}
+            {activeModalAdd && <CreatePackModalWindow activeModalAdd={activeModalAdd}
+                                                      setActive={setActiveModalAdd}
+            />}
 
-            <SuperInputText value={title} onChange={changeTitleHandler}/>
-            <SuperButton onClick={createCardsHandler} disabled={status === "loading"}>Add Cards</SuperButton>
+            <SuperButton onClick={openModalWindow} disabled={status === "loading"}>Add Cards</SuperButton>
 
             <table>
                 <thead className={s.packsHeader}>
@@ -79,7 +76,7 @@ export const Packs = () => {
                 </tr>
                 </thead>
                 <tbody>
-                    {copyCards}
+                {copyPacks}
                 </tbody>
             </table>
         </div>

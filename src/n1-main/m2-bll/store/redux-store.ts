@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
     recoveryPassword: recoveryPasswordReducer,
     newPassword: newPasswordReducer,
     profile: profileReducer,
-    cards: packsReducer
+    packs: packsReducer
 })
 
 export type AppActionType =
