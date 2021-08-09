@@ -13,6 +13,7 @@ export type LoginActionsType =
     | ReturnType<typeof logOutAC>
 
 export type ProfileResponseType = {
+    avatar: string
     created: string
     email: string
     isAdmin: boolean
@@ -31,6 +32,7 @@ type InitialStateType = typeof initialState;
 // Initial State
 const initialState = {
     profile: {
+        avatar: '',
         created: '',
         email: '',
         isAdmin: false,

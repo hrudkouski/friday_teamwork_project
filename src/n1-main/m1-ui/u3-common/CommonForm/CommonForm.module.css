@@ -71,8 +71,10 @@
 .checkBoxFormCommon {
     margin-left: 15px;
     margin-bottom: 15px;
-    font-size: 12px;
+    font-size: 14px;
     color: #fdfdfd;
+    justify-content: center;
+    display: flex;
 }
 
 ::placeholder {

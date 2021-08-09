@@ -17,16 +17,22 @@ export const Profile = () => {
         return <Redirect to={'/login'}/>
     }
 
+    const avatarAddress = profile.avatar ? profile.avatar : 'https://duiko.guru/landing/privlichenie/img/avatar.png'
+
     return (
         <>
             {status === "loading" && <Preloader/>}
             <div className={p.profile}>
-                
-                <h2 className={p.title}>Profile Page</h2>
+                <div className={p.ava}>
+                    <img src={avatarAddress} alt='avatar' title={'avatar'}/>
+                </div>
+                <div className={p.greeting}>{profile.email}</div>
                 <div className={p.greeting}>Hello, {profile.name}</div>
-                <div className={p.numberOfPacks}>You have {profile.publicCardPacksCount} packs.</div>
-
-
+                <div className={p.numberOfPacks}>
+                    You have <span className={p.userPacks}>
+                        {profile.publicCardPacksCount}
+                    </span> packs
+                </div>
             </div>
         </>
     )

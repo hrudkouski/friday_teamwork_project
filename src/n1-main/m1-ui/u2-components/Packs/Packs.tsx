@@ -20,12 +20,13 @@ export const Packs = () => {
     const packs = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.packs.cardPacks)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
+    const page = useSelector<AppRootStateType, number>(state => state.packs.page)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
 
     useEffect(() => {
         dispatch(setPacks())
-    }, [dispatch])
+    }, [dispatch, page])
 
     const openModalWindow = () => {
         setActiveModalAdd(true)
@@ -47,7 +48,6 @@ export const Packs = () => {
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
-        dispatch(setPacks())
     };
 
     return (
