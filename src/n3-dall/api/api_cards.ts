@@ -1,6 +1,6 @@
 import axios from "axios";
 import {EntityStatusType} from "../../n1-main/m1-ui/u2-components/Packs/packs-reducer";
-import { ProfileResponseType } from "../../n2-features/f1-auth/a1-login/login-reducer";
+import {ProfileResponseType} from "../../n2-features/f1-auth/a1-login/login-reducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -26,7 +26,7 @@ export const loginApi = {
         return instance.post<ProfileResponseType>('auth/me')
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ProfileResponseType>(`auth/login`, { email, password, rememberMe })
+        return instance.post<ProfileResponseType>(`auth/login`, {email, password, rememberMe})
     },
     logOut() {
         return instance.delete('auth/me')
@@ -43,25 +43,31 @@ export const registerApi = {
 
 export const packsApi = {
     getPacks(pageCount: number = 7, page: number = 1) {
-        return instance.get<ResponseDataType>(`/cards/pack/?&pageCount=${pageCount}&page=${page}`)
+        return instance.get<ResponseDataType>(`cards/pack/?&pageCount=${pageCount}&page=${page}`)
     },
     createPacks(title: string) {
-        return instance.post(`/cards/pack`, {
+        return instance.post(`cards/pack`, {
             cardsPack: {
                 name: title
             }
         })
     },
     deletePacks(id: string) {
-        return instance.delete<CardPacksDataType>(`/cards/pack?id=${id}`)
+        return instance.delete<CardPacksDataType>(`cards/pack?id=${id}`)
     },
     updatePacks(_id: string, name: string) {
-        return instance.put(`/cards/pack`, {
+        return instance.put(`cards/pack`, {
             cardsPack: {
                 _id,
                 name
             }
         })
+    }
+}
+
+export const cardsApi = {
+    getCards(cardsPack_id: string, pageCount: number = 30) {
+        return instance.get(`cards/card?cardsPack_id=${cardsPack_id}&pageCount=${pageCount}`)
     }
 }
 

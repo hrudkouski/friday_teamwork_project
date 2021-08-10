@@ -19,8 +19,8 @@ export const Packs = () => {
     const dispatch = useDispatch();
     const packs = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.packs.cardPacks)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
-    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const page = useSelector<AppRootStateType, number>(state => state.packs.page)
+    const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
 
@@ -56,7 +56,10 @@ export const Packs = () => {
             {status === "loading" && <Preloader/>}
             {activeModalAdd && <CreatePackModalWindow activeModalAdd={activeModalAdd} setActive={setActiveModalAdd}/>}
 
-            <SuperButton onClick={openModalWindow} disabled={status === "loading"}>Add Cards</SuperButton>
+            <SuperButton
+                onClick={openModalWindow}
+                disabled={status === "loading"}>Add Pack
+            </SuperButton>
 
             <table>
                 <thead className={s.packsHeader}>
@@ -66,7 +69,7 @@ export const Packs = () => {
                     <th>count</th>
                     <th>time</th>
                     <th>cards</th>
-                    <th>train</th>
+                    <th>learn</th>
                     <th/>
                     <th/>
                 </tr>

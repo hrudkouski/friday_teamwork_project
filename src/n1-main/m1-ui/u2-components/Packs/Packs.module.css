@@ -11,8 +11,9 @@
 .packsHeader th {
     font-weight: 700;
     text-align: center;
-    background-color: #1A1A2E;
+    background-color: #EBA300;
     text-transform: uppercase;
+    color: #000;
 }
 
 .packsContainer td,

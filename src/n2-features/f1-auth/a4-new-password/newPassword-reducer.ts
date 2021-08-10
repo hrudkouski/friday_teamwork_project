@@ -21,7 +21,7 @@ const passwordChanged = (value: boolean) => ({type: "NEW-PASSWORD/PASSWORD-CHANG
 export const newPassword = (password: string, resetPasswordToken: {}) => (dispatch: Dispatch) => {
     dispatch(changeStatusAC("loading"))
     recoveryPasswordApi.newPassword(password, resetPasswordToken)
-        .then(response => {
+        .then(() => {
             dispatch(passwordChanged(true))
             dispatch(changeStatusAC("succeeded"))
             toast.success('Password is changed!')
