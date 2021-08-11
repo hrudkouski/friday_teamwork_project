@@ -1,16 +1,16 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {NavLink} from "react-router-dom";
-import { logOutTC } from "../../../../n2-features/f1-auth/a1-login/login-reducer";
-import { AppRootStateType } from "../../../m2-bll/store/redux-store";
-import { StatusType } from "../../u1-app/app-reducer";
+import {logOutTC} from "../../../../n2-features/f1-auth/a1-login/login-reducer";
+import {AppRootStateType} from "../../../m2-bll/store/redux-store";
+import {StatusType} from "../../u1-app/app-reducer";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import h from './Header.module.css'
 
 export const Header = () => {
 
     const dispatch = useDispatch();
-    const islogedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
+    const isloggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     const logOutHandler = () => {
@@ -19,30 +19,27 @@ export const Header = () => {
 
     return (
         <div className={h.header}>
-                    
             <div>
                 <NavLink
                     className={h.link}
                     activeClassName={h.activeLink}
                     to={'/register'}>Sign up
                 </NavLink>
-                
-            
-                    <NavLink
-                        className={!islogedIn ? h.link : h.linkDisabled}
-                        activeClassName={h.activeLink}
-                        to={'/login'}>Sign in
-                    </NavLink>
-            
-                    <NavLink
-                        className={islogedIn ? h.link : h.linkDisabled}
-                        activeClassName={h.activeLink}
-                        to={'/profile'}>Profile
-                    </NavLink>
-            
 
                 <NavLink
-                    className={islogedIn ? h.link : h.linkDisabled}
+                    className={!isloggedIn ? h.link : h.linkDisabled}
+                    activeClassName={h.activeLink}
+                    to={'/login'}>Sign in
+                </NavLink>
+
+                <NavLink
+                    className={isloggedIn ? h.link : h.linkDisabled}
+                    activeClassName={h.activeLink}
+                    to={'/profile'}>Profile
+                </NavLink>
+
+                <NavLink
+                    className={isloggedIn ? h.link : h.linkDisabled}
                     activeClassName={h.activeLink}
                     to={'/packList'}>Packs List
                 </NavLink>
@@ -50,8 +47,7 @@ export const Header = () => {
 
             {/* Sign Out Button Shows only while Signed In */}
             <div>
-                {islogedIn &&
-                
+                {isloggedIn &&
                 <NavLink to={'/login'}>
                     <SuperButton
                         red
@@ -61,7 +57,6 @@ export const Header = () => {
                 </NavLink>
                 }
             </div>
-
         </div>
     )
 }

@@ -7,6 +7,7 @@ import {newPasswordReducer} from "../../../n2-features/f1-auth/a4-new-password/n
 import {profileReducer} from "../../../n2-features/f1-auth/a5-profile/profile-reducer";
 import {AppActionsType, appReducer} from "../../m1-ui/u1-app/app-reducer";
 import {PacksActionsType, packsReducer} from "../../m1-ui/u2-components/Packs/packs-reducer";
+import {CardsActionsType, cardsReducer} from "../../m1-ui/u2-components/Packs/Cards/cards-reducer";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -15,13 +16,15 @@ const rootReducer = combineReducers({
     recoveryPassword: recoveryPasswordReducer,
     newPassword: newPasswordReducer,
     profile: profileReducer,
-    packs: packsReducer
+    packs: packsReducer,
+    cards: cardsReducer,
 })
 
 export type AppActionType =
     | RegisterActionsType
     | LoginActionsType
     | AppActionsType
+    | CardsActionsType
     | PacksActionsType;
 
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType,

@@ -1,0 +1,65 @@
+.cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    margin: 10px;
+}
+
+.cards table {
+    border-collapse: collapse;
+    margin: 25px auto;
+}
+
+.cards th {
+    font-weight: 700;
+    text-align: center;
+    background-color: #EBA300;
+    text-transform: uppercase;
+    color: #000;
+}
+
+.cards td,
+.cards th {
+    border-bottom: 3px solid #E92539;
+    text-align: center;
+    padding: 10px;
+}
+
+.backLink {
+    width: 800px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 24px;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.link:hover {
+    color: #EBA300;
+    transition: 0.5s;
+}
+
+.titleNoCards {
+    margin-top: 35px;
+    font-size: 1.5em;
+    color: #EBA300;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleNoCards span {
+    margin-top: 15px;
+}
+
+.monkey {
+    font-size: 3em;
+}

@@ -7,6 +7,7 @@ import {Error404} from "../../../n2-features/f3-error/Error404";
 import {Profile} from "../u2-components/Profile/Profile";
 import {Register} from "../../../n2-features/f1-auth/a2-register/Register";
 import {Packs} from "../u2-components/Packs/Packs";
+import {Cards} from "../u2-components/Packs/Cards/Cards";
 
 export const PATH = {
     LOGIN: '/login',
@@ -15,13 +16,14 @@ export const PATH = {
     RECOVERY_PASSWORD: '/recovery',
     NEW_PASSWORD: '/new-password',
     PACKS_LIST: '/packList',
+    CARDS: '/cards',
+    LEARN: '/learn',
     TEST: '/test',
     ERROR_404: '/404',
     UNKNOWN_PAGE: '*',
 }
 
 export const Routes = () => {
-    
     return (
         <div>
             <Switch>
@@ -32,6 +34,8 @@ export const Routes = () => {
                 <Route path={PATH.RECOVERY_PASSWORD} render={() => <RecoveryPassword/>}/>
                 <Route path={`${PATH.NEW_PASSWORD}/:token`} render={() => <NewPassword/>}/>
                 <Route path={PATH.PACKS_LIST} render={() => <Packs/>}/>
+                <Route path={PATH.CARDS + `/:id`} render={() => <Cards/>}/>
+                <Route path={PATH.LEARN + `/:id`} render={() => <h1 style={{color: '#fff'}}>Learn</h1>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
                 <Route path={PATH.ERROR_404} render={() => <Error404/>}/>
                 <Redirect from={PATH.UNKNOWN_PAGE} to={PATH.ERROR_404}/>

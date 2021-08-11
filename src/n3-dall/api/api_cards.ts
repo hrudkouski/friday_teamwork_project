@@ -1,6 +1,6 @@
 import axios from "axios";
 import {EntityStatusType} from "../../n1-main/m1-ui/u2-components/Packs/packs-reducer";
-import { ProfileResponseType } from "../../n2-features/f1-auth/a1-login/login-reducer";
+import {ProfileResponseType} from "../../n2-features/f1-auth/a1-login/login-reducer";
 
 const instance = axios.create({
     baseURL: 'https://neko-back.herokuapp.com/2.0/',
@@ -26,7 +26,7 @@ export const loginApi = {
         return instance.post<ProfileResponseType>('auth/me')
     },
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<ProfileResponseType>(`auth/login`, { email, password, rememberMe })
+        return instance.post<ProfileResponseType>(`auth/login`, {email, password, rememberMe})
     },
     logOut() {
         return instance.delete('auth/me')
@@ -46,23 +46,35 @@ export const packsApi = {
         return instance.get<ResponseDataType>(`/cards/pack/?packName=${packName}&pageCount=${pageCount}&page=${page}&sortPacks=&min=${min}&max=${max}&user_id=${id}`)
     },
     createPacks(title: string) {
-        return instance.post(`/cards/pack`, {
+        return instance.post(`cards/pack`, {
             cardsPack: {
                 name: title
             }
         })
     },
     deletePacks(id: string) {
-        return instance.delete<CardPacksDataType>(`/cards/pack?id=${id}`)
+        return instance.delete<CardPacksDataType>(`cards/pack?id=${id}`)
     },
     updatePacks(_id: string, name: string) {
-        return instance.put(`/cards/pack`, {
+        return instance.put(`cards/pack`, {
             cardsPack: {
                 _id,
                 name
             }
         })
     }
+}
+
+export const cardsApi = {
+    getCards(cardsPack_id: string, pageCount: number = 30) {
+        return instance.get<CardsResponseDataType>
+        (`cards/card?cardsPack_id=${cardsPack_id}&pageCount=${pageCount}`)
+    },
+    createCards(newCard: NewCardType) {
+        return instance.post(`cards/card`, {
+            card: newCard
+        })
+    },
 }
 
 // Types
@@ -76,13 +88,48 @@ export type CardPacksDataType = {
     updated: Date
     entityStatus: EntityStatusType
 }
-
-export type ResponseDataType = {
+export type PacksResponseDataType = {
     cardPacks: Array<CardPacksDataType>
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+}
+export type CardsResponseDataType = {
+    cards: Array<CardDataType>,
+    packUserId: string
+    page: number
+    pageCount: number
+    cardsTotalCount: number
+    minGrade: number
+    maxGrade: number
+    token: string
+    tokenDeathTime: number
+}
+export type CardDataType = {
+    answer: string
+    answerImg: string
+    answerVideo: string
+    cardsPack_id: string
+    comments: string
+    created: string
+    grade: number
+    more_id: string
+    question: string
+    questionImg: string
+    questionVideo: string
+    rating: number
+    shots: number
+    type: string
+    updated: string
+    user_id: string
+    __v: number
+    _id: string
+}
+export type NewCardType = {
+    cardsPack_id: string
+    question?: string
+    answer?: string
 }
 

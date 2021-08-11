@@ -1,6 +1,6 @@
-import { logInAC } from "../../../n2-features/f1-auth/a1-login/login-reducer";
-import { loginApi } from "../../../n3-dall/api/api_cards";
-import { AppThunkType } from "../../m2-bll/store/redux-store";
+import {logInAC} from "../../../n2-features/f1-auth/a1-login/login-reducer";
+import {loginApi} from "../../../n3-dall/api/api_cards";
+import {AppThunkType} from "../../m2-bll/store/redux-store";
 
 // Actions
 const SET_ERROR = 'friday_teamwork_project/app-reducer/SET_ERROR';
@@ -46,20 +46,17 @@ export const setIsInitializedAC = (isInitialized: boolean) => ({type: SET_IS_INI
 // Thunk
 export const isInitializedTC = (): AppThunkType =>
     (dispatch) => {
-    dispatch(changeStatusAC("loading"))
-    loginApi.authMe()
-        .then((res) => {
-            console.log(res)
+        dispatch(changeStatusAC("loading"))
+        loginApi.authMe()
+            .then((res) => {
                 dispatch(setIsInitializedAC(true))
                 dispatch(logInAC(res.data, true))
                 dispatch(changeStatusAC("succeeded"))
-        })
-        .catch((err) => {
-            console.log(err.message)
-            dispatch(changeStatusAC("succeeded"))
-            //dispatch(setIsInitializedAC(false))
-        })
-        .finally(() => {
-            dispatch(setIsInitializedAC(true))
-        })
-}
+            })
+            .catch(() => {
+                dispatch(changeStatusAC("failed"))
+            })
+            .finally(() => {
+                dispatch(setIsInitializedAC(true))
+            })
+    }

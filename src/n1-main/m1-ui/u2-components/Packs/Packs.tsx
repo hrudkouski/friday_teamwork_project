@@ -19,6 +19,7 @@ export const Packs = () => {
     const dispatch = useDispatch();
     const packs = useSelector<AppRootStateType, Array<CardPacksDataType>>(state => state.packs.cardPacks)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
+    const page = useSelector<AppRootStateType, number>(state => state.packs.page)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const name = useSelector<AppRootStateType, string>(state => state.packs.name)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
@@ -34,7 +35,7 @@ export const Packs = () => {
 
     useEffect(() => {
         dispatch(setPacks())
-    }, [dispatch])
+    }, [dispatch, page])
 
     const openModalWindow = () => {
         setActiveModalAdd(true)
@@ -80,7 +81,6 @@ export const Packs = () => {
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
         dispatch(setCurrentPageAC(selectedPage))
-        dispatch(setPacks())
     };
 
     return (
@@ -88,7 +88,6 @@ export const Packs = () => {
             <div><Toaster/></div>
             {status === "loading" && <Preloader/>}
             {activeModalAdd && <CreatePackModalWindow activeModalAdd={activeModalAdd} setActive={setActiveModalAdd}/>}
-
 
             <div className={s.navContainer}> 
                 
@@ -112,8 +111,6 @@ export const Packs = () => {
                 <Slider />
             </div>
 
-            
-
             <table>
                 <thead className={s.packsHeader}>
                 <tr>
@@ -122,7 +119,7 @@ export const Packs = () => {
                     <th>count</th>
                     <th>time</th>
                     <th>cards</th>
-                    <th>train</th>
+                    <th>learn</th>
                     <th/>
                     <th/>
                 </tr>

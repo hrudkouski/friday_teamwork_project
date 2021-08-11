@@ -43,8 +43,9 @@
 .packsHeader th {
     font-weight: 700;
     text-align: center;
-    background-color: #1a1a2e;
+    background-color: #EBA300;
     text-transform: uppercase;
+    color: #000;
 }
 
 .packsContainer td,
