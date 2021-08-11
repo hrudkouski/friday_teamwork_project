@@ -1,4 +1,4 @@
-import {CardPacksDataType, packsApi, ResponseDataType} from "../../../../n3-dall/api/api_cards";
+import {CardPacksDataType, packsApi, PacksResponseDataType} from "../../../../n3-dall/api/api_cards";
 import {AppThunkType} from "../../../m2-bll/store/redux-store";
 import {changeStatusAC} from "../../u1-app/app-reducer";
 import {toast} from "react-hot-toast";
@@ -11,7 +11,8 @@ const initialState: InitialStateType = {
     minCardsCount: 0,
     page: 1,
     pageCount: 7,
-    activeModal: false
+    activeModal: false,
+    packCardsId: '',
 }
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionsType): InitialStateType => {
@@ -36,6 +37,12 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
                 ...state,
                 cardPacksTotalCount: action.count
             }
+        case 'CARDS/SET_PACK_CARDS_ID': {
+            return {
+                ...state,
+                packCardsId: action.packId
+            }
+        }
         default:
             return state
     }
@@ -49,6 +56,7 @@ export const setActiveModalAC = (active: boolean) =>
     ({type: "CARDS/SET_ACTIVE_MODAL", active} as const)
 export const setCurrentPageAC = (value: number) => ({type: 'CARDS/SET_CURRENT_PAGE', value} as const)
 export const setPacksTotalCountAC = (count: number) => ({type: 'CARDS/SET_PACKS_TOTAL_COUNT', count} as const)
+export const setPackCardsIdAC = (packId: string) => ({type: 'CARDS/SET_PACK_CARDS_ID', packId} as const)
 
 // Thunk Creators
 export const setPacks = (): AppThunkType =>
@@ -81,7 +89,7 @@ export const createPacks = (title: string): AppThunkType =>
     (dispatch) => {
         dispatch(changeStatusAC("loading"))
         packsApi.createPacks(title)
-            .then(response => {
+            .then(() => {
                 dispatch(setPacks())
                 dispatch(changeStatusAC("succeeded"))
             })
@@ -99,7 +107,7 @@ export const deletePacks = (_id: string): AppThunkType =>
         dispatch(changeStatusAC("loading"))
         dispatch(setEntityStatusPacksAC("loading", _id))
         packsApi.deletePacks(_id)
-            .then(response => {
+            .then(() => {
                 dispatch(setPacks())
                 dispatch(changeStatusAC("succeeded"))
                 dispatch(setEntityStatusPacksAC("succeeded", _id))
@@ -119,7 +127,7 @@ export const updatePacks = (_id: string, name: string): AppThunkType =>
         dispatch(changeStatusAC("loading"))
         dispatch(setEntityStatusPacksAC("loading", _id))
         packsApi.updatePacks(_id, name)
-            .then(response => {
+            .then(() => {
                 dispatch(setPacks())
                 dispatch(changeStatusAC("succeeded"))
                 dispatch(setEntityStatusPacksAC("succeeded", _id))
@@ -135,8 +143,9 @@ export const updatePacks = (_id: string, name: string): AppThunkType =>
     }
 
 // Types
-export type InitialStateType = ResponseDataType & {
-    activeModal: boolean
+export type InitialStateType = PacksResponseDataType & {
+    activeModal: boolean,
+    packCardsId: string
 }
 export type EntityStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 export type PacksActionsType =
@@ -145,5 +154,6 @@ export type PacksActionsType =
     | ReturnType<typeof setActiveModalAC>
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
+    | ReturnType<typeof setPackCardsIdAC>
 
 

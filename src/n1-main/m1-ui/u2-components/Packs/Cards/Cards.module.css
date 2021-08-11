@@ -38,6 +38,8 @@
     text-decoration: none;
     font-size: 24px;
     color: #fff;
+    cursor: pointer;
+    margin-right: 10px;
 }
 
 .link:hover {
@@ -45,6 +47,19 @@
     transition: 0.5s;
 }
 
-/*.addCardButton {*/
-/*    background-color: #00ffd5;*/
-/*}*/
+.titleNoCards {
+    margin-top: 35px;
+    font-size: 1.5em;
+    color: #EBA300;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.titleNoCards span {
+    margin-top: 15px;
+}
+
+.monkey {
+    font-size: 3em;
+}
