@@ -2,7 +2,7 @@ import s from "./Packs.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {CardPacksDataType} from "../../../../n3-dall/api/api_cards";
-import {ChangeEvent, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import {deletePacks, setCurrentPageAC, setIdAC, setPackNameAC, setPacks} from "./packs-reducer";
 import {StatusType} from "../../u1-app/app-reducer";
@@ -12,7 +12,7 @@ import {Toaster} from "react-hot-toast";
 import {CreatePackModalWindow} from "../../u3-common/ModalWindow/CreatePacks/CreatePackModalWindow";
 import {PaginationComponent} from "../../u3-common/Pagination/Pagination";
 import SuperInputText from "../../u3-common/Super-Components/c1-SuperInputText/SuperInputText";
-import { Slider } from "../../u3-common/Super-Components/c8-SuperSlider/Slider";
+import {Slider} from "../../u3-common/Super-Components/c8-SuperSlider/Slider";
 
 export const Packs = () => {
 
@@ -26,7 +26,7 @@ export const Packs = () => {
     const id = useSelector<AppRootStateType, string>(state => state.login.profile._id)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
 
- 
+
     const [activeModalAdd, setActiveModalAdd] = useState(false)
     const [inputValue, setInputValue] = useState(name)
     const [isMyPack, setIsMyPack] = useState(false)
@@ -60,7 +60,7 @@ export const Packs = () => {
         console.log('Search request ' + inputValue)
         dispatch(setPackNameAC(inputValue))
         dispatch(setPacks())
-        
+
         setInputValue('')
         //send search request to the server 
     }
@@ -89,26 +89,28 @@ export const Packs = () => {
             {status === "loading" && <Preloader/>}
             {activeModalAdd && <CreatePackModalWindow activeModalAdd={activeModalAdd} setActive={setActiveModalAdd}/>}
 
-            <div className={s.navContainer}> 
-                
+            <div className={s.navContainer}>
+
                 <div className={s.searchContainer}>
-                    <SuperInputText onChangeText={inputValueSet} 
-                                    placeholder='search packs' 
+                    <SuperInputText onChangeText={inputValueSet}
+                                    placeholder='search packs'
                                     className={s.searchInput}
                                     value={inputValue}
-                                    /> 
+                    />
                     <SuperButton onClick={search} disabled={status === "loading"}>SEARCH</SuperButton>
                 </div>
-                
-                    
+
+
                 <div className={s.allMyPacks}>
-                    <SuperButton onClick={allPacks} disabled={status === "loading" || isMyPack === false}>All PACKS</SuperButton>
-                    <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack === true}>MY PACKS</SuperButton>    
+                    <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>All
+                        PACKS</SuperButton>
+                    <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>MY
+                        PACKS</SuperButton>
                 </div>
 
                 <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
 
-                <Slider />
+                <Slider/>
             </div>
 
             <table>

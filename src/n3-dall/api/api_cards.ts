@@ -133,3 +133,12 @@ export type NewCardType = {
     answer?: string
 }
 
+export type ResponseDataType = {
+    cardPacks: Array<CardPacksDataType>
+    cardPacksTotalCount: number
+    maxCardsCount: number
+    minCardsCount: number
+    page: number
+    pageCount: number
+}
+

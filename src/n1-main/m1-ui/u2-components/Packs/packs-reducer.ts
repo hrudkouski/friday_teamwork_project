@@ -1,4 +1,4 @@
-import {CardPacksDataType, packsApi, PacksResponseDataType} from "../../../../n3-dall/api/api_cards";
+import {CardPacksDataType, packsApi, ResponseDataType} from "../../../../n3-dall/api/api_cards";
 import {AppThunkType} from "../../../m2-bll/store/redux-store";
 import {changeStatusAC} from "../../u1-app/app-reducer";
 import {toast} from "react-hot-toast";
@@ -19,9 +19,9 @@ const initialState: InitialStateType = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionsType): InitialStateType => {
     switch (action.type) {
-        case "CARDS/SET_ID": 
+        case "CARDS/SET_ID":
             return {...state, _id: action._id}
-        case "CARDS/SET_MIN": 
+        case "CARDS/SET_MIN":
             return {...state, minCardsCount: action.min}
         case "CARDS/SET_MAX":
             return {...state, maxCardsCount: action.max}
@@ -150,7 +150,7 @@ export const deletePacks = (_id: string): AppThunkType =>
     }
 
 export const updatePacks = (_id: string, name: string): AppThunkType =>
-    
+
     (dispatch) => {
 
         console.log('Update Packs')
