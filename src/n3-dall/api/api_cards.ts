@@ -42,8 +42,8 @@ export const registerApi = {
 }
 
 export const packsApi = {
-    getPacks(pageCount: number = 7, page: number = 1, packName: string = '') {
-        return instance.get<ResponseDataType>(`/cards/pack/?packName=${packName}&pageCount=${pageCount}&page=${page}`)
+    getPacks(pageCount: number = 7, page: number = 1, packName: string = '', min: number, max: number, id: string) {
+        return instance.get<ResponseDataType>(`/cards/pack/?packName=${packName}&pageCount=${pageCount}&page=${page}&sortPacks=&min=${min}&max=${max}&user_id=${id}`)
     },
     createPacks(title: string) {
         return instance.post(`/cards/pack`, {
