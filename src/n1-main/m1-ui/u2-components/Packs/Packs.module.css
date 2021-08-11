@@ -1,6 +1,38 @@
 .packsContainer {
     color: #ffffff;
     margin: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navContainer {
+    /* background-color: cadetblue; */
+    min-width: 250px;
+    padding: 10px 0 40px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.allMyPacks {
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    /* flex-direction: column; */
+    align-items: center;
+}
+.searchContainer {
+    margin: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.searchInput {
+    margin: 0;
+    width: 190px;
 }
 
 .packsContainer table {
@@ -18,7 +50,7 @@
 
 .packsContainer td,
 .packsContainer th {
-    border-bottom: 2px solid #E92539;
+    border-bottom: 2px solid #e92539;
     text-align: center;
     padding: 10px;
 }
