@@ -5,6 +5,8 @@ import {UpdatePacksModalWindow} from "../../../u3-common/ModalWindow/UpdatePacks
 import {NavLink} from "react-router-dom";
 import p from './Pack.module.css';
 import {PATH} from "../../../u4-routes/Routes";
+import {useSelector} from "react-redux";
+import {AppRootStateType} from "../../../../m2-bll/store/redux-store";
 
 type PackPropsType = {
     pack: CardPacksDataType
@@ -12,6 +14,8 @@ type PackPropsType = {
 }
 
 export const Pack = (props: PackPropsType) => {
+
+    const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
 
     const [activeModal, setActiveModal] = useState(false)
 
@@ -43,29 +47,35 @@ export const Pack = (props: PackPropsType) => {
                 <NavLink
                     className={p.link}
                     to={PATH.CARDS + `/${props.pack._id}`}>
-                    👓
+                    <SuperButton>👓</SuperButton>
                 </NavLink>
             </td>
             <td>
                 <NavLink
                     className={p.link}
                     to={PATH.LEARN + `/${props.pack._id}`}>
-                    🎓
+                    <SuperButton>🎓</SuperButton>
                 </NavLink>
             </td>
             <td>
-                <SuperButton
-                    onClick={openModalWindow}
-                    disabled={props.pack.entityStatus === "loading"}>
-                    🔄
-                </SuperButton>
-            </td>
-            <td>
-                <SuperButton
-                    onClick={deletePacksHandler}
-                    disabled={props.pack.entityStatus === "loading"}>
-                    🧺
-                </SuperButton>
+                {
+                    userLoginID !== props.pack.user_id
+                        ? null
+                        : <>
+                            <SuperButton
+                                style={{marginRight: '20px', fontSize: '1.1em'}}
+                                onClick={openModalWindow}
+                                disabled={props.pack.entityStatus === "loading"}>
+                                🔄
+                            </SuperButton>
+                            <SuperButton
+                                style={{fontSize: '1.1em'}}
+                                onClick={deletePacksHandler}
+                                disabled={props.pack.entityStatus === "loading"}>
+                                🧺
+                            </SuperButton>
+                        </>
+                }
             </td>
             {activeModal && <UpdatePacksModalWindow activeModalUpdate={activeModal}
                                                     id={props.pack._id}

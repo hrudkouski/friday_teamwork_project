@@ -23,15 +23,12 @@ export const Packs = () => {
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.packs.pageCount)
     const name = useSelector<AppRootStateType, string>(state => state.packs.name)
     const cardPacksTotalCount = useSelector<AppRootStateType, number>(state => state.packs.cardPacksTotalCount)
-    const id = useSelector<AppRootStateType, string>(state => state.login.profile._id)
+    const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
-
 
     const [activeModalAdd, setActiveModalAdd] = useState(false)
     const [inputValue, setInputValue] = useState(name)
     const [isMyPack, setIsMyPack] = useState(false)
-
-    console.log('Packs ' + name)
 
     useEffect(() => {
         dispatch(setPacks())
@@ -48,7 +45,7 @@ export const Packs = () => {
     }
     const myPacks = () => {
         setIsMyPack(true)
-        dispatch(setIdAC(id))
+        dispatch(setIdAC(userLoginID))
         dispatch(setPacks())
     }
 
@@ -122,8 +119,7 @@ export const Packs = () => {
                     <th>time</th>
                     <th>cards</th>
                     <th>learn</th>
-                    <th/>
-                    <th/>
+                    <th>actions</th>
                 </tr>
                 </thead>
                 <tbody>

@@ -42,11 +42,13 @@ export const Cards = () => {
                         ? null
                         : <>
                             <span
+                                style={{fontSize:'1.1em'}}
                                 className={c.link}
                                 onClick={() => alert('delete')}>
                         🧺
                     </span>
                             <span
+                                style={{fontSize:'1.1em'}}
                                 className={c.link}
                                 onClick={() => alert('update')}>
                         🔄
