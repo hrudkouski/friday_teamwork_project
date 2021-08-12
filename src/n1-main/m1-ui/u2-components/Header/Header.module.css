@@ -31,7 +31,7 @@
 
 .activeLink {
     font-weight: bold;
-    border-bottom: 5px solid #e92539;
+    border-bottom: 5px solid #eba300;
 }
 
 @media (max-width: 580px) {
