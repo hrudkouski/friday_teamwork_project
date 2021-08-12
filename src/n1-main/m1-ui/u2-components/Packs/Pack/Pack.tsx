@@ -47,14 +47,14 @@ export const Pack = (props: PackPropsType) => {
                 <NavLink
                     className={p.link}
                     to={PATH.CARDS + `/${props.pack._id}`}>
-                    <SuperButton>👓</SuperButton>
+                    👓
                 </NavLink>
             </td>
             <td>
                 <NavLink
                     className={p.link}
                     to={PATH.LEARN + `/${props.pack._id}`}>
-                    <SuperButton>🎓</SuperButton>
+                    🎓
                 </NavLink>
             </td>
             <td>

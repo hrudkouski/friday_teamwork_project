@@ -75,9 +75,6 @@ export const setPackCardsIdAC = (packId: string) => ({type: 'CARDS/SET_PACK_CARD
 // Thunk Creators
 export const setPacks = (): AppThunkType =>
     (dispatch, getState) => {
-
-        console.log('Set Packs')
-
         dispatch(changeStatusAC("loading"))
 
         const state = getState()
