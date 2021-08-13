@@ -8,21 +8,24 @@
 }
 
 .cards table {
-    border-collapse: collapse;
     margin: 25px auto;
+    border-collapse: collapse;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
 }
 
 .cards th {
     font-weight: 700;
     text-align: center;
-    background-color: #EBA300;
+    background-color: #eba300;
     text-transform: uppercase;
     color: #000;
+    font-family: 'Dosis', sans-serif;
 }
 
 .cards td,
 .cards th {
-    border-bottom: 3px solid #E92539;
+    border-bottom: 1px solid #3b5781;
     text-align: center;
     padding: 10px;
 }
@@ -32,19 +35,6 @@
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
-}
-
-.link {
-    text-decoration: none;
-    font-size: 24px;
-    color: #fff;
-    cursor: pointer;
-    margin-right: 10px;
-}
-
-.link:hover {
-    color: #EBA300;
-    transition: 0.5s;
 }
 
 .titleNoCards {
@@ -62,4 +52,20 @@
 
 .monkey {
     font-size: 3em;
+}
+
+.link {
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+    margin-right: 5px;
+    background: none;
+    border: none;
+    transition: transform 0.7s ease-in-out;
+    font-size: 1.3em;
+}
+
+.link:hover {
+    color: #EBA300;
+    transition: 0.5s;
 }

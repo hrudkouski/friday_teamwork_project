@@ -9,7 +9,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(40,44,52,.8);
+    background: rgba(40, 44, 52, .8);
     z-index: 1000;
 }
 
@@ -26,4 +26,11 @@
 .title {
     font-size: 22px;
     font-weight: 500;
+}
+
+.allButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
 }
