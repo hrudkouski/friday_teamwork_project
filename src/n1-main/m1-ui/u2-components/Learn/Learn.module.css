@@ -1,0 +1,42 @@
+.learnContainer {
+    height: 100vh;
+    color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.question {
+    margin-bottom: 10px;
+}
+
+.block {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.butContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 700px;
+    margin: 30px 0;
+}
+
+.infoBlock {
+    text-align: center;
+}
+
+.infoBlock div {
+    line-height: 50px;
+}
+
+.titleNoCards span {
+    margin-top: 15px;
+}
+
+.monkey {
+    font-size: 3em;
+}
+
+
+

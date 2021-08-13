@@ -56,24 +56,25 @@ export const Pack = (props: PackPropsType) => {
                 </NavLink>
             </td>
             <td>
+
                 {
                     userLoginID !== props.pack.user_id
                         ? null
                         : <>
-                            <SuperButton
-                                style={{marginRight: '20px', fontSize: '1.1em'}}
-                                onClick={openUpdateModalWindow}
-                                disabled={props.pack.entityStatus === "loading"}>
-                                🔄
-                            </SuperButton>
-                            <SuperButton
-                                style={{fontSize: '1.1em'}}
-                                onClick={openDeleteModalWindow}
-                                disabled={props.pack.entityStatus === "loading"}>
-                                🧺
-                            </SuperButton>
+                      <button
+                    className={p.Button}
+                    onClick={openUpdateModalWindow}
+                    disabled={props.pack.entityStatus === "loading"}
+                    >⚙️</button>
+
+                      <button
+                    className={p.Button}
+                    onClick={openDeleteModalWindow}
+                    disabled={props.pack.entityStatus === "loading"}
+                    >🧨</button>
                         </>
                 }
+
             </td>
 
             {activeModal && <UpdatePacksModalWindow

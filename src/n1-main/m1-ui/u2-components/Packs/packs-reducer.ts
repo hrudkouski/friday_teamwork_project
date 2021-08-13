@@ -10,7 +10,7 @@ const initialState: InitialStateType = {
     maxCardsCount: 0,
     minCardsCount: 0,
     page: 1,
-    pageCount: 7,
+    pageCount: 10,
     activeModal: false,
     packCardsId: '',
     name: '',
@@ -19,6 +19,10 @@ const initialState: InitialStateType = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionsType): InitialStateType => {
     switch (action.type) {
+        case "CARDS/SET_MAX_CARD_NUMBER": 
+            return {...state, maxCardsCount: action.maxCount}
+        case "CARDS/SET_MIN_CARD_NUMBER": 
+            return {...state, minCardsCount: action.minCount}
         case "CARDS/SET_ID":
             return {...state, _id: action._id}
         case "CARDS/SET_MIN":
@@ -51,6 +55,8 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
 }
 
 // Actions Creators
+export const setMaxCardsCount = (maxCount: number) => ({type: "CARDS/SET_MAX_CARD_NUMBER", maxCount} as const)
+export const setMinCardsCount = (minCount: number) => ({type: "CARDS/SET_MIN_CARD_NUMBER", minCount} as const)
 export const setIdAC = (_id: string) => ({type: "CARDS/SET_ID", _id} as const)
 export const setPackNameAC = (name: string) => ({type: "CARDS/SET_NAME", name} as const)
 export const setMinAC = (min: number) => ({type: "CARDS/SET_MIN", min} as const)
@@ -174,5 +180,6 @@ export type PacksActionsType =
     | ReturnType<typeof setCurrentPageAC>
     | ReturnType<typeof setPacksTotalCountAC>
     | ReturnType<typeof setPackCardsIdAC>
-
+    | ReturnType<typeof setMaxCardsCount>
+    | ReturnType<typeof setMinCardsCount>
 

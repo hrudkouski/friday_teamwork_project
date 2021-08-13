@@ -1,6 +1,6 @@
 import {AppThunkType} from "../../../../m2-bll/store/redux-store";
 import {changeStatusAC} from "../../../u1-app/app-reducer";
-import {CardDataType, cardsApi, CardsResponseDataType, NewCardType} from "../../../../../n3-dall/api/api_cards";
+import {CardDataType, cardsApi, CardsResponseDataType, NewCardType, learnApi} from "../../../../../n3-dall/api/api_cards";
 import {toast} from "react-hot-toast";
 import {setPackCardsIdAC} from "../packs-reducer";
 
@@ -8,6 +8,7 @@ import {setPackCardsIdAC} from "../packs-reducer";
 const SET_CARDS = 'friday_teamwork_project/cards-reducer/SET_CARDS';
 const SET_CARDS_TOTAL_COUNT = 'friday_teamwork_project/cards-reducer/SET_CARDS_TOTAL_COUNT';
 const SET_CURRENT_PAGE = 'friday_teamwork_project/cards-reducer/SET_CURRENT_PAGE';
+const SET_UPDATE_GRADE_CARD = 'friday_teamwork_project/cards-reducer/SET_UPDATE_GRADE_CARD';
 
 // Types
 export type InitialStateType = CardsResponseDataType & {
@@ -17,6 +18,7 @@ export type CardsActionsType =
     | ReturnType<typeof setCardsAC>
     | ReturnType<typeof setCardsCurrentPageAC>
     | ReturnType<typeof setCardsTotalCountAC>
+    | ReturnType<typeof setUpdateGradeCardAC>
 
 // Initial State
 const initialState: InitialStateType = {
@@ -52,15 +54,21 @@ export const cardsReducer = (state: InitialStateType = initialState, action: Car
                 ...state,
                 cardsTotalCount: action.count
             }
+        case SET_UPDATE_GRADE_CARD: {
+            return {...state,
+                cards: state.cards.map(c => c._id === action.card_id ? {...c, grade: action.grade} : c)}
+        }
         default:
             return state;
     }
 }
 
 // Actions Creators
+
 export const setCardsAC = (cards: Array<CardDataType>) => ({type: SET_CARDS, cards} as const)
 export const setCardsTotalCountAC = (count: number) => ({type: SET_CARDS_TOTAL_COUNT, count} as const)
 export const setCardsCurrentPageAC = (value: number) => ({type: SET_CURRENT_PAGE, value} as const)
+export const setUpdateGradeCardAC = (grade: number, card_id: string) => ({type: SET_UPDATE_GRADE_CARD, grade, card_id} as const)
 
 // Thunk Creators
 export const getCards = (cardsPack_id: string): AppThunkType =>
@@ -112,6 +120,7 @@ export const createCard = (cardsPack_id: string, question: string, answer: strin
             })
     }
 
+
 export const deleteCard = (cardId: string, packID: string): AppThunkType =>
     (dispatch) => {
         dispatch(changeStatusAC("loading"))
@@ -121,11 +130,30 @@ export const deleteCard = (cardId: string, packID: string): AppThunkType =>
                 dispatch(changeStatusAC("succeeded"))
             })
             .catch((e) => {
-                const error = e.response
+           const error = e.response
                     ? e.response.data.error
                     : (e.message + ', more details in the console');
                 dispatch(changeStatusAC("failed"))
                 toast.error(error)
+            })
+    }
+
+export const updateGrade = (grade: number, card_id: string): AppThunkType =>
+    (dispatch) => {
+        dispatch(changeStatusAC("loading"))
+        learnApi.learnCard(grade, card_id)
+            .then (res => {
+                dispatch(setUpdateGradeCardAC(res.data.grade, res.data.card_id))
+                dispatch(changeStatusAC("succeeded"))
+            })
+            .catch(e => {
+                const error = e.response
+                    ? e.response.data.error
+                    : (e.message + ', more details in the console');
+                dispatch(changeStatusAC("failed"))
+                toast.error(error, {
+                    duration: 2000
+                })
             })
     }
 
@@ -149,3 +177,4 @@ export const updateCard = (packId: string, cardId: string, question: string, ans
             dispatch(changeStatusAC('succeeded'))
         })
 }
+

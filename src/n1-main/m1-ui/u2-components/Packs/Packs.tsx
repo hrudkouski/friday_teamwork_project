@@ -27,7 +27,7 @@ export const Packs = () => {
     const totalPages = Math.ceil(cardPacksTotalCount / packsPerPage)
 
     const [activeModalAdd, setActiveModalAdd] = useState(false)
-    const [inputValue, setInputValue] = useState(name)
+    const [searchValue, setSearchValue] = useState(name)
     const [isMyPack, setIsMyPack] = useState(false)
 
     useEffect(() => {
@@ -51,15 +51,14 @@ export const Packs = () => {
     }
 
     const inputValueSet = (value: string) => {
-        setInputValue(value)
+        setSearchValue(value)
     }
 
     const search = () => {
-        console.log('Search request ' + inputValue)
-        dispatch(setPackNameAC(inputValue))
+        dispatch(setPackNameAC(searchValue))
         dispatch(setPacks())
 
-        setInputValue('')
+        setSearchValue('')
         //send search request to the server 
     }
 
@@ -84,26 +83,32 @@ export const Packs = () => {
 
             <div className={s.navContainer}>
 
-                <div className={s.searchContainer}>
-                    <SuperInputText onChangeText={inputValueSet}
-                                    placeholder='search packs'
-                                    className={s.searchInput}
-                                    value={inputValue}
-                    />
-                    <SuperButton onClick={search} disabled={status === "loading"}>SEARCH</SuperButton>
-                </div>
-
+            <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
 
                 <div className={s.allMyPacks}>
                     <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>
                         All PACKS</SuperButton>
                     <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>
                         MY PACKS</SuperButton>
+
                 </div>
 
-                <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
+                <div className={s.searchContainer}>
+                    <SuperInputText onChangeText={inputValueSet}
+                                    onEnter={search}
+                                    placeholder='search packs'
+                                    className={s.searchInput}
+                                    value={searchValue}
+                    />
+                    
+                    <button onClick={search}
+                            className={s.searchButton}
+                            disabled={status === "loading"}
+                            >🔍
+                    </button>
+                </div>
 
-                <Slider/>
+                <Slider />
             </div>
 
             <table>
