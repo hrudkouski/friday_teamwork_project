@@ -2,3 +2,12 @@
     text-decoration: none;
     font-size: 24px;
 }
+.Button {
+    background: none;
+    border: none;
+    transition: transform 0.7s ease-in-out;
+}
+.Button:hover {
+    cursor: pointer;
+    transform: rotate(20deg);
+}

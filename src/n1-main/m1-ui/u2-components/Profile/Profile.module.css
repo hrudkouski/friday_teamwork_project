@@ -1,6 +1,6 @@
 .profile {
     min-width: 100%;
-    min-height: 70vh;
+    /* min-height: 100vh; */
     margin-left: auto;
     color: white;
     display: flex;
@@ -30,6 +30,6 @@
 }
 
 .userPacks {
-    color: #E92539;
+    color: #e92539;
     font-size: 1.3em;
 }
