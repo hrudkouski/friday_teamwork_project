@@ -11,6 +11,7 @@
 .navContainer {
     /* background-color: cadetblue; */
     min-width: 250px;
+    max-width: 350px;
     padding: 10px 0 40px 0;
     display: flex;
     justify-content: center;
@@ -30,10 +31,25 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    /* background-color: wheat; */
+    border: 1px white solid;
+    border-radius: 20px;
 }
+.searchButton {
+    padding-right: 15px;
+    background: none;
+    border: none;
+    transition: transform 0.7s ease-in-out;
+}
+.searchButton:hover {
+    cursor: pointer;
+    transform: rotate(360deg);
+}
+
 .searchInput {
     margin: 0;
     width: 190px;
+    border: none;
 }
 
 .packsContainer table {

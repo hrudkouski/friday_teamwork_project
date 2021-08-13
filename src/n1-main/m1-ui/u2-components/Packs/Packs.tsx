@@ -89,24 +89,32 @@ export const Packs = () => {
 
             <div className={s.navContainer}>
 
-                <div className={s.searchContainer}>
-                    <SuperInputText onChangeText={inputValueSet}
-                                    placeholder='search packs'
-                                    className={s.searchInput}
-                                    value={searchValue}
-                    />
-                    <SuperButton onClick={search} disabled={status === "loading"}>SEARCH</SuperButton>
-                </div>
+            <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
 
-
-                <div className={s.allMyPacks}>
+            <div className={s.allMyPacks}>
                     <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>All
                         PACKS</SuperButton>
                     <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>MY
                         PACKS</SuperButton>
                 </div>
 
-                <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
+
+                <div className={s.searchContainer}>
+                    <SuperInputText onChangeText={inputValueSet}
+                                    onEnter={search}
+                                    placeholder='search packs'
+                                    className={s.searchInput}
+                                    value={searchValue}
+                    />
+                    
+                    <button onClick={search}
+                            className={s.searchButton}
+                            disabled={status === "loading"}
+                            >🔍
+                    </button>
+                </div>
+
+                
 
                 <Slider />
             </div>

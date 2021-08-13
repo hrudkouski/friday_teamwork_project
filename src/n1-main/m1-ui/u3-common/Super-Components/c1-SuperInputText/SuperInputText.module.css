@@ -4,15 +4,17 @@
 }
 
 .input {
-    background: #2B5278;
+    padding: 5px 5px 5px 10px;
+    background: none;
     outline: none;
     opacity: 0.6;
     width: 250px;
     height: 25px;
-    color: #99ff99;
-    font-size: large;
+    color: white;
+    font-size: 0.9em;
     margin: 15px;
-    border-radius: 10px;
+    border: 1px solid white;
+    border-radius: 20px;
 }
 
 .errorInput {
@@ -24,4 +26,3 @@
     color: #dd3355;
     height: 31px;
 }
-
