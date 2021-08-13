@@ -77,6 +77,12 @@ export const cardsApi = {
     },
 }
 
+export const learnApi = {
+    learnCard(grade: number, card_id: string) {
+        return instance.put<GradeDataType>(`/cards/grade`, {grade, card_id})
+    }
+}
+
 // Types
 export type CardPacksDataType = {
     _id: string
@@ -140,5 +146,14 @@ export type ResponseDataType = {
     minCardsCount: number
     page: number
     pageCount: number
+}
+
+export type GradeDataType = {
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id: string
+    grade: number
+    shots: number
 }
 

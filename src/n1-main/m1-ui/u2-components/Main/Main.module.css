@@ -1,5 +1,4 @@
 .main {
-    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -10,10 +9,6 @@
 
 .container {
     width: 80%;
-    /* height: 100%; */
     display: flex;
     flex-direction: column;
-    /* background-color: wheat; */
-
-    /* justify-content: center; */
 }

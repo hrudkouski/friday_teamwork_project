@@ -8,6 +8,7 @@ import {Profile} from "../u2-components/Profile/Profile";
 import {Register} from "../../../n2-features/f1-auth/a2-register/Register";
 import {Packs} from "../u2-components/Packs/Packs";
 import {Cards} from "../u2-components/Packs/Cards/Cards";
+import {Learn} from "../u2-components/Learn/Learn";
 
 export const PATH = {
     LOGIN: '/login',
@@ -35,7 +36,7 @@ export const Routes = () => {
                 <Route path={`${PATH.NEW_PASSWORD}/:token`} render={() => <NewPassword/>}/>
                 <Route path={PATH.PACKS_LIST} render={() => <Packs/>}/>
                 <Route path={PATH.CARDS + `/:id`} render={() => <Cards/>}/>
-                <Route path={PATH.LEARN + `/:id`} render={() => <h1 style={{color: '#fff'}}>Learn</h1>}/>
+                <Route path={PATH.LEARN + `/:id`} render={() => <Learn/>}/>
                 <Route path={PATH.TEST} render={() => <Test/>}/>
                 <Route path={PATH.ERROR_404} render={() => <Error404/>}/>
                 <Redirect from={PATH.UNKNOWN_PAGE} to={PATH.ERROR_404}/>
