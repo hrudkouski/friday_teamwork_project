@@ -5,7 +5,6 @@ import {CardDataType} from '../../../../../../n3-dall/api/api_cards';
 import {AppRootStateType} from '../../../../../m2-bll/store/redux-store';
 import {DeleteCardModalWindow} from "../../../../u3-common/ModalWindow/DeleteCard/DeleteCardModalWindow";
 import {UpdateCardModalWindow} from "../../../../u3-common/ModalWindow/UpdateCard/UpdateCardModalWindow";
-import SuperButton from '../../../../u3-common/Super-Components/c2-SuperButton/SuperButton';
 import {StatusType} from "../../../../u1-app/app-reducer";
 
 type CardPropsType = {
@@ -58,20 +57,18 @@ export const Card: React.FC<CardPropsType> = (
                     {userLoginID !== card.user_id
                         ? null
                         : <>
-                            <SuperButton
-                                style={{marginRight: '20px', fontSize: '1.2em'}}
+                            <button
                                 className={c.link}
                                 disabled={status === "loading"}
                                 onClick={openDeleteCardModalWindow}>
                                 🧺
-                            </SuperButton>
-                            <SuperButton
-                                style={{fontSize: '1.2em'}}
+                            </button>
+                            <button
                                 className={c.link}
                                 disabled={status === "loading"}
                                 onClick={openUpdateCardModalWindow}>
                                 🔄
-                            </SuperButton>
+                            </button>
                         </>
                     }
                 </td>

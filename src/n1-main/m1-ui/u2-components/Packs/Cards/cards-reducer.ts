@@ -25,7 +25,7 @@ const initialState: InitialStateType = {
     cards: [],
     packUserId: '',
     page: 1,
-    pageCount: 7,
+    pageCount: 10,
     cardsTotalCount: 0,
     minGrade: 0,
     maxGrade: 6,

@@ -28,14 +28,16 @@ export const DeleteCardModalWindow = (props: CreatePacksType) => {
         <div className={s.modalContainer} onClick={activeModalHandler}>
             <div className={s.modalContent} onClick={stopActiveModal}>
                 <div className={s.title}>Are you sure to delete this card?</div>
-                <SuperButton
-                    type={"submit"}
-                    onClick={deleteCardHandler}>
-                    YES</SuperButton>
-                <SuperButton
-                    type={"submit"}
-                    onClick={resetCardsHandler}>
-                    NO</SuperButton>
+                <div className={s.allButton}>
+                    <SuperButton
+                        type={"submit"}
+                        onClick={deleteCardHandler}>
+                        YES</SuperButton>
+                    <SuperButton
+                        type={"submit"}
+                        onClick={resetCardsHandler}>
+                        NO</SuperButton>
+                </div>
             </div>
         </div>
     )

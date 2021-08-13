@@ -57,7 +57,6 @@ export const Packs = () => {
     const search = () => {
         dispatch(setPackNameAC(searchValue))
         dispatch(setPacks())
-
         setSearchValue('')
         //send search request to the server 
     }
@@ -79,18 +78,28 @@ export const Packs = () => {
         <div className={s.packsContainer}>
             <div><Toaster/></div>
             {status === "loading" && <Preloader/>}
-            {activeModalAdd && <CreatePackModalWindow activeModalAdd={activeModalAdd} setActive={setActiveModalAdd}/>}
+            {activeModalAdd &&
+            <CreatePackModalWindow
+                activeModalAdd={activeModalAdd} setActive={setActiveModalAdd}/>}
 
             <div className={s.navContainer}>
-
-            <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
+                <SuperButton
+                    onClick={openModalWindow}
+                    disabled={status === "loading"}>
+                    ADD PACK
+                </SuperButton>
 
                 <div className={s.allMyPacks}>
-                    <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>
-                        All PACKS</SuperButton>
-                    <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>
-                        MY PACKS</SuperButton>
-
+                    <SuperButton
+                        onClick={allPacks}
+                        disabled={status === "loading" || !isMyPack}>
+                        All PACKS
+                    </SuperButton>
+                    <SuperButton
+                        onClick={myPacks}
+                        disabled={status === "loading" || isMyPack}>
+                        MY PACKS
+                    </SuperButton>
                 </div>
 
                 <div className={s.searchContainer}>
@@ -100,15 +109,14 @@ export const Packs = () => {
                                     className={s.searchInput}
                                     value={searchValue}
                     />
-                    
-                    <button onClick={search}
-                            className={s.searchButton}
-                            disabled={status === "loading"}
-                            >🔍
+                    <button
+                        onClick={search}
+                        className={s.searchButton}
+                        disabled={status === "loading"}>
+                        🔍
                     </button>
                 </div>
-
-                <Slider />
+                <Slider/>
             </div>
 
             <table>
@@ -129,13 +137,12 @@ export const Packs = () => {
             </table>
 
             {
-                cardPacksTotalCount < 5
+                cardPacksTotalCount < 11
                     ? null
                     : <PaginationComponent
                         handlePageChange={handlePageChange}
                         totalPages={totalPages}/>
             }
-
         </div>
     )
 }

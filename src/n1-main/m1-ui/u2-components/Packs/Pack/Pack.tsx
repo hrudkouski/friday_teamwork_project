@@ -1,6 +1,5 @@
 import {CardPacksDataType} from "../../../../../n3-dall/api/api_cards";
 import React, {useState} from "react";
-import SuperButton from "../../../u3-common/Super-Components/c2-SuperButton/SuperButton";
 import {UpdatePacksModalWindow} from "../../../u3-common/ModalWindow/UpdatePack/UpdatePacksModalWindow";
 import {NavLink} from "react-router-dom";
 import p from './Pack.module.css';
@@ -52,7 +51,8 @@ export const Pack = (props: PackPropsType) => {
                 <NavLink
                     className={p.link}
                     to={PATH.LEARN + `/${props.pack._id}`}>
-                    🎓
+
+                        🎓
                 </NavLink>
             </td>
             <td>
@@ -61,17 +61,19 @@ export const Pack = (props: PackPropsType) => {
                     userLoginID !== props.pack.user_id
                         ? null
                         : <>
-                      <button
-                    className={p.Button}
-                    onClick={openUpdateModalWindow}
-                    disabled={props.pack.entityStatus === "loading"}
-                    >⚙️</button>
+                            <button
+                                className={p.Button}
+                                onClick={openUpdateModalWindow}
+                                disabled={props.pack.entityStatus === "loading"}
+                            >⚙️
+                            </button>
 
-                      <button
-                    className={p.Button}
-                    onClick={openDeleteModalWindow}
-                    disabled={props.pack.entityStatus === "loading"}
-                    >🧨</button>
+                            <button
+                                className={p.Button}
+                                onClick={openDeleteModalWindow}
+                                disabled={props.pack.entityStatus === "loading"}
+                            >🧨
+                            </button>
                         </>
                 }
 
