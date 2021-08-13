@@ -33,6 +33,7 @@ export const DeletePackModalWindow = (props: CreatePacksType) => {
                         onClick={deletePackHandler}>
                         YES</SuperButton>
                     <SuperButton
+                        red
                         type={"submit"}
                         onClick={resetPackHandler}>
                         NO</SuperButton>
