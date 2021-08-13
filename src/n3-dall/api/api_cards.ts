@@ -57,23 +57,26 @@ export const packsApi = {
     },
     updatePacks(_id: string, name: string) {
         return instance.put(`cards/pack`, {
-            cardsPack: {
-                _id,
-                name
-            }
+            cardsPack: {_id, name}
         })
     }
 }
 
 export const cardsApi = {
-    getCards(cardsPack_id: string, pageCount: number = 30) {
+    getCards(cardsPack_id: string, page: number = 1, pageCount: number = 10,) {
         return instance.get<CardsResponseDataType>
-        (`cards/card?cardsPack_id=${cardsPack_id}&pageCount=${pageCount}`)
+        (`cards/card?cardsPack_id=${cardsPack_id}&pageCount=${pageCount}&page=${page}`)
     },
-    createCards(newCard: NewCardType) {
+    createCard(newCard: NewCardType) {
         return instance.post(`cards/card`, {
             card: newCard
         })
+    },
+    deleteCard(cardsPack_id: string) {
+        return instance.delete(`cards/card?id=${cardsPack_id}`)
+    },
+    updateCard(updateCard: updateCardType) {
+        return instance.put('cards/card', {card: updateCard})
     },
 }
 
@@ -94,14 +97,14 @@ export type CardPacksDataType = {
     updated: Date
     entityStatus: EntityStatusType
 }
-export type PacksResponseDataType = {
-    cardPacks: Array<CardPacksDataType>
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-}
+// export type PacksResponseDataType = {
+//     cardPacks: Array<CardPacksDataType>
+//     cardPacksTotalCount: number
+//     maxCardsCount: number
+//     minCardsCount: number
+//     page: number
+//     pageCount: number
+// }
 export type CardsResponseDataType = {
     cards: Array<CardDataType>,
     packUserId: string
@@ -138,7 +141,11 @@ export type NewCardType = {
     question?: string
     answer?: string
 }
-
+type updateCardType = {
+    _id: string,
+    question?: string,
+    answer?: string
+}
 export type ResponseDataType = {
     cardPacks: Array<CardPacksDataType>
     cardPacksTotalCount: number

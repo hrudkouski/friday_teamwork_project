@@ -7,9 +7,11 @@ import {useEffect, useState} from "react";
 import {Toaster} from "react-hot-toast";
 import {Preloader} from "../../../u3-common/Super-Components/c7-Preloader/Preloader";
 import {NavLink, useParams} from "react-router-dom";
-import {getCards} from './cards-reducer';
+import {getCards, setCardsCurrentPageAC} from './cards-reducer';
 import {CardDataType} from '../../../../../n3-dall/api/api_cards';
-import {CreateCardModalWindow} from "../../../u3-common/ModalWindow/CreateCards/CreateCardModalWindow";
+import {CreateCardModalWindow} from "../../../u3-common/ModalWindow/CreateCard/CreateCardModalWindow";
+import {Card} from "./Card/Card";
+import {PaginationComponent} from "../../../u3-common/Pagination/Pagination";
 
 export const Cards = () => {
 
@@ -19,45 +21,26 @@ export const Cards = () => {
     const cards = useSelector<AppRootStateType, Array<CardDataType>>(state => state.cards.cards)
     const userCardID = useSelector<AppRootStateType, string>(state => state.cards.cards[0]?.user_id)
     const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
+    const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
+    const packsPerPage = useSelector<AppRootStateType, number>(state => state.cards.pageCount)
+    const totalPages = Math.ceil(cardsTotalCount / packsPerPage)
+    const page = useSelector<AppRootStateType, number>(state => state.cards.page)
     const {id} = useParams<{ id: string }>()
 
     useEffect(() => {
         dispatch(getCards(id))
-    }, [dispatch, id])
+    }, [dispatch, id, page])
 
-    const openModalWindow = () => {
-        setActiveModalAdd(true)
-    }
+    const openModalWindow = () => setActiveModalAdd(true)
 
-    const copyCards = cards.map(el => {
-            const update = new Date(el.updated).toLocaleDateString(['ban', 'id'])
-            return <tbody key={el._id}>
-            <tr>
-                <td>{el.question}</td>
-                <td>{el.answer}</td>
-                <td>{update}</td>
-                <td>{el.grade}</td>
-                <td>
-                    {userLoginID !== el.user_id
-                        ? null
-                        : <>
-                            <span
-                                className={c.link}
-                                onClick={() => alert('delete')}>
-                        🧺
-                    </span>
-                            <span
-                                className={c.link}
-                                onClick={() => alert('update')}>
-                        🔄
-                    </span>
-                        </>
-                    }
-                </td>
-            </tr>
-            </tbody>
-        }
-    )
+    const copyCards = cards.map(el => <tbody key={el._id}>
+    <Card card={el} packID={id}/>
+    </tbody>)
+
+    const handlePageChange = (e: { selected: number }) => {
+        const selectedPage = e.selected + 1;
+        dispatch(setCardsCurrentPageAC(selectedPage))
+    };
 
     return (
         <div className={c.cards}>
@@ -79,12 +62,16 @@ export const Cards = () => {
 
             <h2>Cards</h2>
 
-
-            <SuperButton
-                className={c.addCardButton}
-                onClick={openModalWindow}
-                disabled={status === "loading" || userCardID !== userLoginID}>Add Card
-            </SuperButton>
+            {
+                userCardID !== userLoginID
+                    ? null
+                    : <SuperButton
+                        className={c.addCardButton}
+                        onClick={openModalWindow}
+                        disabled={status === "loading"}>
+                        Add Card
+                    </SuperButton>
+            }
 
             {
                 !cards.length
@@ -105,6 +92,14 @@ export const Cards = () => {
                         </thead>
                         {copyCards}
                     </table>
+            }
+
+            {
+                cardsTotalCount < 11
+                    ? null
+                    : <PaginationComponent
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}/>
             }
         </div>
     )

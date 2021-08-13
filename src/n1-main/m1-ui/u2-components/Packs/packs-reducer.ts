@@ -35,27 +35,19 @@ export const packsReducer = (state: InitialStateType = initialState, action: Pac
             return {...state, cardPacks: action.cards}
         case "CARDS/SET_STATUS":
             return {
-                ...state, cardPacks: state.cardPacks.map(c => c._id === action.id
+                ...state,
+                cardPacks: state.cardPacks.map(c => c._id === action.id
                     ? {...c, entityStatus: action.entityStatus} : c)
             }
         case "CARDS/SET_ACTIVE_MODAL":
             return {...state, activeModal: action.active}
         case 'CARDS/SET_CURRENT_PAGE': {
-            return {
-                ...state,
-                page: action.value
-            }
+            return {...state, page: action.value}
         }
         case 'CARDS/SET_PACKS_TOTAL_COUNT':
-            return {
-                ...state,
-                cardPacksTotalCount: action.count
-            }
+            return {...state, cardPacksTotalCount: action.count}
         case 'CARDS/SET_PACK_CARDS_ID': {
-            return {
-                ...state,
-                packCardsId: action.packId
-            }
+            return {...state, packCardsId: action.packId}
         }
         default:
             return state
@@ -81,9 +73,6 @@ export const setPackCardsIdAC = (packId: string) => ({type: 'CARDS/SET_PACK_CARD
 // Thunk Creators
 export const setPacks = (): AppThunkType =>
     (dispatch, getState) => {
-
-        console.log('Set Packs')
-
         dispatch(changeStatusAC("loading"))
 
         const state = getState()
@@ -115,8 +104,6 @@ export const setPacks = (): AppThunkType =>
 export const createPacks = (title: string): AppThunkType =>
     (dispatch) => {
 
-        console.log('Create Packs')
-
         dispatch(changeStatusAC("loading"))
         packsApi.createPacks(title)
             .then(() => {
@@ -134,8 +121,6 @@ export const createPacks = (title: string): AppThunkType =>
 
 export const deletePacks = (_id: string): AppThunkType =>
     (dispatch) => {
-
-        console.log('Delete Packs')
 
         dispatch(changeStatusAC("loading"))
         dispatch(setEntityStatusPacksAC("loading", _id))
@@ -156,10 +141,7 @@ export const deletePacks = (_id: string): AppThunkType =>
     }
 
 export const updatePacks = (_id: string, name: string): AppThunkType =>
-
     (dispatch) => {
-
-        console.log('Update Packs')
 
         dispatch(changeStatusAC("loading"))
         dispatch(setEntityStatusPacksAC("loading", _id))
