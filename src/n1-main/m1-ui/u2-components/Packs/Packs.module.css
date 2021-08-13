@@ -55,6 +55,8 @@
 .packsContainer table {
     border-collapse: collapse;
     margin: 0 auto;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
 }
 
 .packsHeader th {
@@ -63,6 +65,7 @@
     background-color: #eba300;
     text-transform: uppercase;
     color: #000;
+    font-family: 'Dosis', sans-serif;
 }
 
 .packsContainer td,
