@@ -70,10 +70,13 @@ export const cardsApi = {
         return instance.get<CardsResponseDataType>
         (`cards/card?cardsPack_id=${cardsPack_id}&pageCount=${pageCount}&page=${page}`)
     },
-    createCards(newCard: NewCardType) {
+    createCard(newCard: NewCardType) {
         return instance.post(`cards/card`, {
             card: newCard
         })
+    },
+    deleteCard(cardsPack_id: string) {
+        return instance.delete(`cards/card?id=${cardsPack_id}`)
     },
 }
 

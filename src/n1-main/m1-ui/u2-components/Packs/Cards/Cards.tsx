@@ -9,7 +9,7 @@ import {Preloader} from "../../../u3-common/Super-Components/c7-Preloader/Preloa
 import {NavLink, useParams} from "react-router-dom";
 import {getCards, setCardsCurrentPageAC} from './cards-reducer';
 import {CardDataType} from '../../../../../n3-dall/api/api_cards';
-import {CreateCardModalWindow} from "../../../u3-common/ModalWindow/CreateCards/CreateCardModalWindow";
+import {CreateCardModalWindow} from "../../../u3-common/ModalWindow/CreateCard/CreateCardModalWindow";
 import {Card} from "./Card/Card";
 import {PaginationComponent} from "../../../u3-common/Pagination/Pagination";
 
@@ -24,27 +24,19 @@ export const Cards = () => {
     const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
     const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
     const packsPerPage = useSelector<AppRootStateType, number>(state => state.cards.pageCount)
+    const totalPages = Math.ceil(cardsTotalCount / packsPerPage)
     const page = useSelector<AppRootStateType, number>(state => state.cards.page)
     const {id} = useParams<{ id: string }>()
-
-    const totalPages = Math.ceil(cardsTotalCount / packsPerPage)
 
     useEffect(() => {
         dispatch(getCards(id))
     }, [dispatch, id, page])
 
+    const openModalWindow = () => setActiveModalAdd(true)
 
-    const openModalWindow = () => {
-        setActiveModalAdd(true)
-    }
-
-    const copyCards = cards.map(el => {
-        return (
-            <tbody key={el._id}>
-            <Card card={el}/>
-            </tbody>
-        )
-    })
+    const copyCards = cards.map(el => <tbody key={el._id}>
+    <Card card={el} packID={id}/>
+    </tbody>)
 
     const handlePageChange = (e: { selected: number }) => {
         const selectedPage = e.selected + 1;
@@ -71,11 +63,15 @@ export const Cards = () => {
 
             <h2>Cards</h2>
 
-            <SuperButton
-                className={c.addCardButton}
-                onClick={openModalWindow}
-                disabled={status === "loading" || userCardID !== userLoginID}>Add Card
-            </SuperButton>
+            {
+                userCardID !== userLoginID
+                    ? null
+                    : <SuperButton
+                        className={c.addCardButton}
+                        onClick={openModalWindow}
+                        disabled={status === "loading"}>Add Card
+                    </SuperButton>
+            }
 
             {
                 !cards.length
@@ -98,9 +94,13 @@ export const Cards = () => {
                     </table>
             }
 
-            <PaginationComponent
-                handlePageChange={handlePageChange}
-                totalPages={totalPages}/>
+            {
+                cardsTotalCount < 5
+                    ? null
+                    : <PaginationComponent
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}/>
+            }
         </div>
     )
 }

@@ -4,7 +4,7 @@ import {AppRootStateType} from "../../../m2-bll/store/redux-store";
 import {CardPacksDataType} from "../../../../n3-dall/api/api_cards";
 import {useEffect, useState} from "react";
 import SuperButton from "../../u3-common/Super-Components/c2-SuperButton/SuperButton";
-import {deletePacks, setCurrentPageAC, setIdAC, setPackNameAC, setPacks} from "./packs-reducer";
+import {setCurrentPageAC, setIdAC, setPackNameAC, setPacks} from "./packs-reducer";
 import {StatusType} from "../../u1-app/app-reducer";
 import {Preloader} from "../../u3-common/Super-Components/c7-Preloader/Preloader";
 import {Pack} from "./Pack/Pack";
@@ -63,15 +63,10 @@ export const Packs = () => {
         //send search request to the server 
     }
 
-    const deletePack = (id: string) => {
-        dispatch(deletePacks(id))
-    }
-
     const copyPacks = packs.map(c => {
         return (
             <tr key={c._id}>
-                <Pack deletePacks={deletePack}
-                      pack={c}/>
+                <Pack pack={c}/>
             </tr>
         )
     })
@@ -100,10 +95,10 @@ export const Packs = () => {
 
 
                 <div className={s.allMyPacks}>
-                    <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>All
-                        PACKS</SuperButton>
-                    <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>MY
-                        PACKS</SuperButton>
+                    <SuperButton onClick={allPacks} disabled={status === "loading" || !isMyPack}>
+                        All PACKS</SuperButton>
+                    <SuperButton onClick={myPacks} disabled={status === "loading" || isMyPack}>
+                        MY PACKS</SuperButton>
                 </div>
 
                 <SuperButton onClick={openModalWindow} disabled={status === "loading"}>ADD PACK</SuperButton>
@@ -128,9 +123,14 @@ export const Packs = () => {
                 </tbody>
             </table>
 
-            <PaginationComponent
-                handlePageChange={handlePageChange}
-                totalPages={totalPages}/>
+            {
+                cardPacksTotalCount < 5
+                    ? null
+                    : <PaginationComponent
+                        handlePageChange={handlePageChange}
+                        totalPages={totalPages}/>
+            }
+
         </div>
     )
 }

@@ -96,7 +96,7 @@ export const createCard = (cardsPack_id: string, question: string, answer: strin
     (dispatch) => {
         dispatch(changeStatusAC("loading"))
         const newCard: NewCardType = {cardsPack_id, question, answer}
-        cardsApi.createCards(newCard)
+        cardsApi.createCard(newCard)
             .then(() => {
                 dispatch(getCards(cardsPack_id))
                 dispatch(changeStatusAC("succeeded"))
@@ -109,6 +109,23 @@ export const createCard = (cardsPack_id: string, question: string, answer: strin
                 toast.error(error, {
                     duration: 2000
                 })
+            })
+    }
+
+export const deleteCard = (cardsPack_id: string, packID: string): AppThunkType =>
+    (dispatch) => {
+        dispatch(changeStatusAC("loading"))
+        cardsApi.deleteCard(cardsPack_id)
+            .then(() => {
+                dispatch(getCards(packID))
+                dispatch(changeStatusAC("succeeded"))
+            })
+            .catch((e) => {
+                const error = e.response
+                    ? e.response.data.error
+                    : (e.message + ', more details in the console');
+                dispatch(changeStatusAC("failed"))
+                toast.error(error)
             })
     }
 
