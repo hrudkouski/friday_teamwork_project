@@ -23,7 +23,7 @@ const initialState: InitialStateType = {
     cards: [],
     packUserId: '',
     page: 1,
-    pageCount: 10,
+    pageCount: 7,
     cardsTotalCount: 0,
     minGrade: 0,
     maxGrade: 6,
@@ -112,10 +112,10 @@ export const createCard = (cardsPack_id: string, question: string, answer: strin
             })
     }
 
-export const deleteCard = (cardsPack_id: string, packID: string): AppThunkType =>
+export const deleteCard = (cardId: string, packID: string): AppThunkType =>
     (dispatch) => {
         dispatch(changeStatusAC("loading"))
-        cardsApi.deleteCard(cardsPack_id)
+        cardsApi.deleteCard(cardId)
             .then(() => {
                 dispatch(getCards(packID))
                 dispatch(changeStatusAC("succeeded"))
@@ -129,3 +129,23 @@ export const deleteCard = (cardsPack_id: string, packID: string): AppThunkType =
             })
     }
 
+export const updateCard = (packId: string, cardId: string, question: string, answer: string): AppThunkType => (dispatch) => {
+    dispatch(changeStatusAC("loading"))
+    const updateCard = {_id: cardId, question, answer}
+    cardsApi.updateCard(updateCard)
+        .then(() => {
+            dispatch(getCards(packId))
+        })
+        .catch(err => {
+            const error = err.response
+                ? err.response.data.error
+                : (err.message + ', more details in the console');
+            dispatch(changeStatusAC("failed"))
+            toast.error(error, {
+                duration: 2000
+            });
+        })
+        .finally(() => {
+            dispatch(changeStatusAC('succeeded'))
+        })
+}

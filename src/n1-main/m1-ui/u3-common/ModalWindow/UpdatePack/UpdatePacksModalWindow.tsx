@@ -9,11 +9,12 @@ type UpdatePacksType = {
     activeModalUpdate: boolean
     setActive: (active: boolean) => void
     id: string
+    name: string
 }
 
 export const UpdatePacksModalWindow = (props: UpdatePacksType) => {
 
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState(props.name)
 
     const dispatch = useDispatch();
 

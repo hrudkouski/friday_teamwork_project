@@ -19,7 +19,6 @@ export const Cards = () => {
     const [activeModalAdd, setActiveModalAdd] = useState(false)
     const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
     const cards = useSelector<AppRootStateType, Array<CardDataType>>(state => state.cards.cards)
-
     const userCardID = useSelector<AppRootStateType, string>(state => state.cards.cards[0]?.user_id)
     const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
     const cardsTotalCount = useSelector<AppRootStateType, number>(state => state.cards.cardsTotalCount)
@@ -69,7 +68,8 @@ export const Cards = () => {
                     : <SuperButton
                         className={c.addCardButton}
                         onClick={openModalWindow}
-                        disabled={status === "loading"}>Add Card
+                        disabled={status === "loading"}>
+                        Add Card
                     </SuperButton>
             }
 
@@ -95,7 +95,7 @@ export const Cards = () => {
             }
 
             {
-                cardsTotalCount < 5
+                cardsTotalCount < 11
                     ? null
                     : <PaginationComponent
                         handlePageChange={handlePageChange}

@@ -4,6 +4,9 @@ import React, {useState} from "react";
 import {CardDataType} from '../../../../../../n3-dall/api/api_cards';
 import {AppRootStateType} from '../../../../../m2-bll/store/redux-store';
 import {DeleteCardModalWindow} from "../../../../u3-common/ModalWindow/DeleteCard/DeleteCardModalWindow";
+import {UpdateCardModalWindow} from "../../../../u3-common/ModalWindow/UpdateCard/UpdateCardModalWindow";
+import SuperButton from '../../../../u3-common/Super-Components/c2-SuperButton/SuperButton';
+import {StatusType} from "../../../../u1-app/app-reducer";
 
 type CardPropsType = {
     card: CardDataType
@@ -17,11 +20,14 @@ export const Card: React.FC<CardPropsType> = (
     }) => {
 
     const [activeDeleteCardModal, setActiveDeleteCardModal] = useState(false)
+    const [activeUpdateCardModal, setActiveUpdateCardModal] = useState(false)
     const userLoginID = useSelector<AppRootStateType, string>(state => state.login.profile._id)
+    const status = useSelector<AppRootStateType, StatusType>(state => state.app.status)
 
     const update = new Date(card.updated).toLocaleDateString(['ban', 'id'])
 
     const openDeleteCardModalWindow = () => setActiveDeleteCardModal(true)
+    const openUpdateCardModalWindow = () => setActiveUpdateCardModal(true)
 
     return (
         <>
@@ -33,6 +39,16 @@ export const Card: React.FC<CardPropsType> = (
                 setActive={setActiveDeleteCardModal}
             />}
 
+            {activeUpdateCardModal &&
+            <UpdateCardModalWindow
+                activeModalUpdate={activeUpdateCardModal}
+                setActive={setActiveUpdateCardModal}
+                cardID={card._id}
+                packID={packID}
+                answer={card.answer}
+                question={card.question}
+            />}
+
             <tr>
                 <td>{card.question}</td>
                 <td>{card.answer}</td>
@@ -42,18 +58,20 @@ export const Card: React.FC<CardPropsType> = (
                     {userLoginID !== card.user_id
                         ? null
                         : <>
-                            <span
-                                style={{fontSize: '1.2em'}}
+                            <SuperButton
+                                style={{marginRight: '20px', fontSize: '1.2em'}}
                                 className={c.link}
+                                disabled={status === "loading"}
                                 onClick={openDeleteCardModalWindow}>
-                        🧺
-                    </span>
-                            <span
+                                🧺
+                            </SuperButton>
+                            <SuperButton
                                 style={{fontSize: '1.2em'}}
                                 className={c.link}
-                                onClick={() => alert(card._id)}>
-                        🔄
-                    </span>
+                                disabled={status === "loading"}
+                                onClick={openUpdateCardModalWindow}>
+                                🔄
+                            </SuperButton>
                         </>
                     }
                 </td>

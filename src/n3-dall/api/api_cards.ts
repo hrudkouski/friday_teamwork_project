@@ -57,10 +57,7 @@ export const packsApi = {
     },
     updatePacks(_id: string, name: string) {
         return instance.put(`cards/pack`, {
-            cardsPack: {
-                _id,
-                name
-            }
+            cardsPack: {_id, name}
         })
     }
 }
@@ -77,6 +74,9 @@ export const cardsApi = {
     },
     deleteCard(cardsPack_id: string) {
         return instance.delete(`cards/card?id=${cardsPack_id}`)
+    },
+    updateCard(updateCard: updateCardType) {
+        return instance.put('cards/card', {card: updateCard})
     },
 }
 
@@ -133,6 +133,11 @@ export type CardDataType = {
 export type NewCardType = {
     cardsPack_id: string
     question?: string
+    answer?: string
+}
+type updateCardType = {
+    _id: string,
+    question?: string,
     answer?: string
 }
 export type ResponseDataType = {

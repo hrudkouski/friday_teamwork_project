@@ -1,7 +1,7 @@
 import {CardPacksDataType} from "../../../../../n3-dall/api/api_cards";
 import React, {useState} from "react";
 import SuperButton from "../../../u3-common/Super-Components/c2-SuperButton/SuperButton";
-import {UpdatePacksModalWindow} from "../../../u3-common/ModalWindow/UpdatePacks/UpdatePacksModalWindow";
+import {UpdatePacksModalWindow} from "../../../u3-common/ModalWindow/UpdatePack/UpdatePacksModalWindow";
 import {NavLink} from "react-router-dom";
 import p from './Pack.module.css';
 import {PATH} from "../../../u4-routes/Routes";
@@ -78,6 +78,7 @@ export const Pack = (props: PackPropsType) => {
 
             {activeModal && <UpdatePacksModalWindow
                 activeModalUpdate={activeModal}
+                name={props.pack.name}
                 id={props.pack._id}
                 setActive={setActiveModal}/>}
 
