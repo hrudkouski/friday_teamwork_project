@@ -3,6 +3,8 @@ import {AppThunkType} from "../../../m2-bll/store/redux-store";
 import {changeStatusAC} from "../../u1-app/app-reducer";
 import {toast} from "react-hot-toast";
 
+const SET_MAX_CARD_NUMBER = "CARDS/SET_MAX_CARD_NUMBER"
+
 // Initial State
 const initialState: InitialStateType = {
     cardPacks: [],
@@ -19,7 +21,7 @@ const initialState: InitialStateType = {
 
 export const packsReducer = (state: InitialStateType = initialState, action: PacksActionsType): InitialStateType => {
     switch (action.type) {
-        case "CARDS/SET_MAX_CARD_NUMBER": 
+        case SET_MAX_CARD_NUMBER:
             return {...state, maxCardsCount: action.maxCount}
         case "CARDS/SET_MIN_CARD_NUMBER": 
             return {...state, minCardsCount: action.minCount}
